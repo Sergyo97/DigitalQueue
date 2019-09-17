@@ -9,9 +9,10 @@ import java.sql.Timestamp;
 @Entity
 public class Turn {
 
-    @Id
+
+    private @Id
     @GeneratedValue
-    private Long id;
+    Long id;
     private String code;
     private String clientName;
     private Timestamp requestedDateTime;

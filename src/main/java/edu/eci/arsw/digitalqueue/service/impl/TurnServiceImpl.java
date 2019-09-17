@@ -1,39 +1,43 @@
 package edu.eci.arsw.digitalqueue.service.impl;
 
-import edu.eci.arsw.digitalqueue.model.AttentionPoint;
+import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.service.TurnService;
 import edu.eci.arsw.digitalqueue.model.Turn;
 import edu.eci.arsw.digitalqueue.persistence.TurnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
 public class TurnServiceImpl implements TurnService {
 
     @Autowired
-    TurnRepository turnRepository;
+    private TurnRepository turnRepository;
 
     @Override
-    public Turn findByCode(String code) {
+    public List<Turn> findAll() {
+        return turnRepository.findAll();
+    }
+
+    @Override
+    public Turn create(Turn newTurn) {
+        return turnRepository.save(newTurn);
+    }
+
+    @Override
+    public Optional<Turn> findByCode(String code) {
         return turnRepository.findByCode(code);
     }
 
     @Override
-    public void newTurn(Turn newTurn) {
-        turnRepository.save(newTurn);
+    public Optional<Turn> findNextTurnInQueue(Queue queue) {
+        return turnRepository.findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(queue);
     }
 
     @Override
-    public void cancelTurn(Turn turn) {
-        // TODO: Implement
-    }
-
-    @Override
-    public void attendTurn(AttentionPoint attentionPoint, Turn turn) {
-        turn.setAttended(true);
-        turn.setAttentionPoint(attentionPoint);
-        // TODO: Finish
+    public List<Turn> findByQueue(Queue queue) {
+        return turnRepository.findByQueue(queue);
     }
 }

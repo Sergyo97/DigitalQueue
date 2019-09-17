@@ -1,20 +1,22 @@
 package edu.eci.arsw.digitalqueue.service;
 
-import edu.eci.arsw.digitalqueue.model.AttentionPoint;
+import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.model.Turn;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public interface TurnService {
 
-    Turn findByCode(String code);
+    List<Turn> findAll();
 
-    void newTurn(Turn newTurn);
+    Turn create(Turn newTurn);
 
-    void cancelTurn(Turn turn);
+    Optional<Turn> findByCode(String code);
 
-    void attendTurn(AttentionPoint attentionPoint, Turn turn);
+    Optional<Turn> findNextTurnInQueue(Queue queue);
 
+    List<Turn> findByQueue(Queue queue);
 }

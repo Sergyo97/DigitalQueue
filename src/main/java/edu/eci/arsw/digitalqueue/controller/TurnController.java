@@ -1,13 +1,13 @@
 package edu.eci.arsw.digitalqueue.controller;
 
+import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.model.Turn;
 import edu.eci.arsw.digitalqueue.service.TurnService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class TurnController {
@@ -15,13 +15,29 @@ public class TurnController {
     @Autowired
     TurnService turnService;
 
+    @GetMapping("/turns")
+    List<Turn> all() {
+        return turnService.findAll();
+    }
+
     @PostMapping("/turns")
-    public ResponseEntity<?> newTurn (@RequestBody Turn newTurn) {
-        if (turnService.findByCode(newTurn.getCode()) == null) {
-            turnService.newTurn(newTurn);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    public Turn create(@RequestBody Turn newTurn) {
+        return turnService.create(newTurn);
+    }
+
+    @GetMapping("/turns/{code}")
+    public Optional<Turn> one(@PathVariable String code) {
+        return turnService.findByCode(code);
+    }
+
+    @GetMapping("/turns/{queue}")
+    public List<Turn> inQueue(@RequestBody Queue queue) {
+        return turnService.findByQueue(queue);
+    }
+
+    @GetMapping("/turns/{queue}/next")
+    public Optional<Turn> nextInQueue(@RequestBody Queue queue) {
+        return turnService.findNextTurnInQueue(queue);
     }
 
 }
