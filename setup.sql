@@ -32,9 +32,9 @@ CREATE TABLE queue (
 CREATE TABLE turn (
     code varchar(5)  NOT NULL,
     requested_date_time timestamp  NOT NULL,
-    attended_date_time timestamp  NOT NULL,
+    attended_date_time timestamp,
     queue_name varchar(20)  NOT NULL,
-    attention_point_code varchar(5)  NOT NULL,
+    attention_point_code varchar(5),
     CONSTRAINT turn_pk PRIMARY KEY (code)
 );
 
