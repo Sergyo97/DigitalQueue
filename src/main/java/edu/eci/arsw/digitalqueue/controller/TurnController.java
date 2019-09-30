@@ -28,7 +28,7 @@ public class TurnController {
 
     @GetMapping("/turns/{code}")
     public Optional<Turn> one(@PathVariable String code) {
-        return turnService.findByCode(code);
+        return turnService.findById(code);
     }
 
     @GetMapping("/turns/{queue}")
