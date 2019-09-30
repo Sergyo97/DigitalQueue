@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TurnRepository extends JpaRepository<Turn, Long> {
-
-    Optional<Turn> findByCode(String code);
+public interface TurnRepository extends JpaRepository<Turn, String> {
 
     Optional<Turn> findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
 

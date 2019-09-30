@@ -9,11 +9,7 @@ import java.sql.Timestamp;
 @Entity
 public class Turn {
 
-
-    private @Id
-    @GeneratedValue
-    Long id;
-    private String code;
+    private @Id String code;
     private String clientName;
     private Timestamp requestedDateTime;
     private Timestamp attendedDateTime;
@@ -21,14 +17,6 @@ public class Turn {
     private Boolean attended;
     private Boolean cancelled;
     private AttentionPoint attentionPoint;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
