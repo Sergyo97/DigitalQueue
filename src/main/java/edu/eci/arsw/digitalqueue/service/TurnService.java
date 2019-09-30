@@ -14,7 +14,7 @@ public interface TurnService {
 
     Turn create(Turn newTurn);
 
-    Optional<Turn> findByCode(String code);
+    Optional<Turn> findById(String code);
 
     Optional<Turn> findNextTurnInQueue(Queue queue);
 

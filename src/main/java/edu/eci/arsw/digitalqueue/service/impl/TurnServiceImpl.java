@@ -27,8 +27,8 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
-    public Optional<Turn> findByCode(String code) {
-        return turnRepository.findByCode(code);
+    public Optional<Turn> findById(String code) {
+        return turnRepository.findById(code);
     }
 
     @Override
