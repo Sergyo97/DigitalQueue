@@ -1,0 +1,1 @@
+web: java -jar target/DigitalQueue-0.0.1.SNAPSHOT.jar

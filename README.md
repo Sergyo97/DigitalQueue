@@ -1,6 +1,6 @@
 # DigitalQueue
 
-Project developed by Daniel Vela, Sergio Ruiz and Wilson Melo for the course of Software 
+Project developed by Daniel Vela, Sergio Ruiz and Wilson Melo for the course of Software
 Architecture of the Colombian School of Engineering for the 2019-II semester.
 
 ## Problem to be solved
@@ -18,3 +18,9 @@ The purpose of this project is to implement a digital turn system that is ready 
 The final aggregate value is based in the reports feature: a business can get immediate feedback in terms of performance, customer satisfaction and possible bottlenecks or problematic areas.
 
 ![Component diagram](src/main/resources/static/Component%20Diagram.png)
+
+## Architecture
+
+Our solution is to deploy standalone Spring Boot applications compiled from a base code source (this repository) for each business to store their queues, users and configurations, with its own database and URL to access. Only employees can access the company's DigitalQueue deployment.
+
+To begin, and for demonstration purposes, the application will be deployed to Heroku, where a PostgreSQL database will be available for the user to store data.
