@@ -1,6 +1,4 @@
 package edu.eci.arsw.digitalqueue.model;
-
-<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -48,11 +46,5 @@ public class AttentionPoint {
 
     
 
-    
-
 
 }
-=======
-public class AttentionPoint {
-}
->>>>>>> master
