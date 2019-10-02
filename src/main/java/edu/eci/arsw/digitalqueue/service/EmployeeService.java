@@ -14,7 +14,7 @@ public interface EmployeeService{
 
     Employee create(Employee newEmployee);
     
-    Optional<Employee> findById(Long Code);
+    Optional<Employee> findById(Long id);
 
     Optional<Employee> findByEmail(String email);
 
