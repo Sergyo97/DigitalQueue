@@ -19,6 +19,11 @@ public class QueueController {
     @Autowired
     QueueService queueService;
 
+    @GetMapping("/queues")
+    public ResponseEntity<?> all() {
+        return new ResponseEntity<>(queueService.all(), HttpStatus.OK);
+    }
+
     @PostMapping("/queues")
     public ResponseEntity<?> newQueue(@RequestBody Queue newQueue){
         if (queueService.findById(newQueue.getId()) == null){

@@ -1,5 +1,6 @@
 package edu.eci.arsw.digitalqueue.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class QueueServiceStub implements QueueService {
     QueueRepository queueRepository;
 
     @Override
-    public void newQueue(Queue newQueue)  {
+    public void newQueue(Queue newQueue) {
         queueRepository.save(newQueue);
     }
 
@@ -26,7 +27,7 @@ public class QueueServiceStub implements QueueService {
     }
 
     @Override
-    public Optional<Queue> findById(Long id){
+    public Optional<Queue> findById(Long id) {
         return queueRepository.findById(id);
     }
 
@@ -38,5 +39,10 @@ public class QueueServiceStub implements QueueService {
     @Override
     public void deleteByName(String name) {
         queueRepository.delete(queueRepository.findByName(name));
+    }
+
+    @Override
+    public List<Queue> all() {
+        return queueRepository.findAll();
     }
 }
