@@ -19,10 +19,10 @@ public interface AttentionPointService{
 
     Optional<AttentionPoint> findById(Long id);
 
-    List<AttentionPoint> findEnableAttentionPoints();
+    List<AttentionPoint> findEnabledAttentionPoints();
 
-    List<AttentionPoint> findDisableAttentionPoints();
+    List<AttentionPoint> findDisabledAttentionPoints();
 
     void assignEmployeToAttentionPoint(Long idAttPoint, Employee emp);
-    
+
 }

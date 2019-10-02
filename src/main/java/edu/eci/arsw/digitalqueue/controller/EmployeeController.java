@@ -18,9 +18,9 @@ import edu.eci.arsw.digitalqueue.service.QueueService;
 public class EmployeeController{
 
     @Autowired
-    EmployeeService employeService;
+    EmployeeService employeeService;
 
-    
+
 
 
 

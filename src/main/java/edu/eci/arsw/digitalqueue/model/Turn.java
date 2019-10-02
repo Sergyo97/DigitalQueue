@@ -1,21 +1,29 @@
 package edu.eci.arsw.digitalqueue.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.sql.Timestamp;
 
-@SuppressWarnings("unused")
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 @Entity
+@Table(name = "turns")
 public class Turn {
 
     private @Id String code;
     private String clientName;
     private Timestamp requestedDateTime;
     private Timestamp attendedDateTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "queue_id")
     private Queue queue;
     private Boolean attended;
     private Boolean cancelled;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attention_point_id")
     private AttentionPoint attentionPoint;
 
     public String getCode() {

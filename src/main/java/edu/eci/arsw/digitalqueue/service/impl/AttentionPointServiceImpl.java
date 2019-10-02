@@ -26,7 +26,7 @@ public class AttentionPointServiceImpl implements AttentionPointService {
 
     @Override
     public boolean create(AttentionPoint newAttPoint) {
-        
+
         attentionPointRepository.save(newAttPoint);
         if(findById(newAttPoint.getId()) != null ){
             return false;
@@ -35,11 +35,11 @@ public class AttentionPointServiceImpl implements AttentionPointService {
     }
 
     @Override
-    public boolean deleteAttentionPoint(AttentionPoint attPoint) {        
+    public boolean deleteAttentionPoint(AttentionPoint attPoint) {
         attentionPointRepository.delete(attPoint);
         if( findById(attPoint.getId()) != null){
             return false;
-        } 
+        }
         return true;
     }
 
@@ -49,13 +49,13 @@ public class AttentionPointServiceImpl implements AttentionPointService {
     }
 
     @Override
-    public List<AttentionPoint> findEnableAttentionPoints() {
-        return attentionPointRepository.findEnableAttentionPoint(); 
+    public List<AttentionPoint> findEnabledAttentionPoints() {
+        return attentionPointRepository.findByEnable(true);
     }
 
     @Override
-    public List<AttentionPoint> findDisableAttentionPoints() {
-        return attentionPointRepository.findDisaableAttentionPoint();
+    public List<AttentionPoint> findDisabledAttentionPoints() {
+        return attentionPointRepository.findByEnable(false);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class AttentionPointServiceImpl implements AttentionPointService {
         Optional<AttentionPoint> attPointOptional = findById(idAttPoint);
         AttentionPoint attPoint = attPointOptional.get();
         attPoint.setEmployee(emp);
-        attentionPointRepository.updateAttentionPoint(attPoint);
-        
+        attentionPointRepository.save(attPoint);
+
     }
 
 
