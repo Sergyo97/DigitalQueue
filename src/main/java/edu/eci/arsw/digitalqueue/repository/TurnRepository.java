@@ -1,4 +1,4 @@
-package edu.eci.arsw.digitalqueue.persistence;
+package edu.eci.arsw.digitalqueue.repository;
 
 import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.model.Turn;

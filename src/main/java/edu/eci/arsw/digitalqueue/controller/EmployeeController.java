@@ -12,35 +12,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.digitalqueue.model.Employee;
-import edu.eci.arsw.digitalqueue.service.EmployeeService;
+import edu.eci.arsw.digitalqueue.repository.EmployeeRepository;
 
 
 @RestController
 public class EmployeeController{
 
     @Autowired
-    private
-    EmployeeService employeeService;
+    private EmployeeRepository employeeRepository;
 
 
     @GetMapping("/employees")
     List<Employee> all(){
-        return employeeService.findAll();
+        return employeeRepository.findAll();
     }
 
     @PostMapping("/employees")
     public Employee create(@RequestBody Employee newEmployee){
-        return employeeService.create(newEmployee);
+        return employeeRepository.create(newEmployee);
     }
     
     @GetMapping("/employees/{id}")
     public Optional<Employee> one(@PathVariable long id){
-        return employeeService.findById(id);
+        return employeeRepository.findById(id);
     }
 
     @GetMapping("/employees/{email}")
     public Optional<Employee> employeeByEmail(@PathVariable String email){
-        return employeeService.findByEmail(email);
+        return employeeRepository.findByEmail(email);
     }
 
 
