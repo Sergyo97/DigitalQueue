@@ -11,9 +11,7 @@ import javax.persistence.Table;
 public class Employee{
 
 
-    private @Id
-    @GeneratedValue
-    Long id;
+    private @Id @GeneratedValue Long id;
     private String name;
     private String email;
     @OneToOne(mappedBy = "employee")
