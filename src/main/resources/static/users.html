@@ -157,23 +157,19 @@
                 </div>
 
                 <script>
-
-
-
-
                     var loading = document.getElementById('loading');
                     var mensaje = document.getElementById('mensaje');
 
-
+                
                     
                     var boton = document.getElementById('json_post');
                     boton.addEventListener('click', function () {
                         loading.style.display = 'block';
                         axios.post('http://localhost:8080/employees', {
-                            data: {
-                                name: 'hola bebe',
-                                email: 'hola.bebe'
-                            }
+                            
+                                name: document.getElementById('recipient-name').value,
+                                email: document.getElementById('recipient-email').value
+                        
                         })
                             .then(function (res) {
                                 if (res.status == 201) {
@@ -188,18 +184,7 @@
                             });
                     });
 
-                    /*
-                    axios.post('http://localhost:8080/employees', {
-                        name: 'Fred',
-                        email: 'Flintstone'
-                    })
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                        */
+                   
                 </script>
 
                 <table class="table mt-3 mx-5 w-75 ">

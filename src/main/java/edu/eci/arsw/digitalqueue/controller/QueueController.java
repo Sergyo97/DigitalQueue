@@ -26,11 +26,19 @@ public class QueueController {
 
     @PostMapping("/queues")
     public ResponseEntity<?> newQueue(@RequestBody Queue newQueue){
+        
+        //System.out.println(newQueue.toString());
+        queueService.newQueue(newQueue);
+        /*
+        System.out.println(newQueue.getId());
+        
         if (queueService.findById(newQueue.getId()) == null){
+            System.out.println("entro");
             queueService.newQueue(newQueue);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }*/
+        return new ResponseEntity<>(HttpStatus.CREATED);
+        //return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     @GetMapping("/queues/{id}")
