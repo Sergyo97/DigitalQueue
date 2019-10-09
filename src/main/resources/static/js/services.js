@@ -1,13 +1,12 @@
-
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
+
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    //http://localhost:8080/employees
-    axios.post('https://digital-queue-404.herokuapp.com/employees', {
-        name: document.getElementById('recipient-name').value,
-        email: document.getElementById('recipient-email').value
+    axios.post('https://digital-queue-404.herokuapp.com/queues', {
+
+        name: document.getElementById('recipient-name').value
 
     })
         .then(function (res) {
@@ -23,20 +22,22 @@ boton.addEventListener('click', function () {
         });
 });
 
-//http://localhost:8080/employees
-axios.get('https://digital-queue-404.herokuapp.com/employees')
+
+axios.get('https://digital-queue-404.herokuapp.com/queues')
     .then(response => {
+        
         mydata = response.data;
-        mydata = mydata._embedded.employeeList;
+        
+        mydata = mydata._embedded.queueList;
         // $('#table1').bootstrapTable({
         //     data: mydata
         // });
-        mydata.forEach(employee => {
-            $('#employeeTable').append(`
+        console.log(mydata);
+        mydata.forEach(service => {
+            $('#servicesTable').append(`
                 <tr>
-                    <td>` + employee.name + `</td>
-                    <td>` + employee.email + `</td>
-                    <td>Admin</td>
+                    <td>` + service.name + `</td>
+                    <td>` + service.name[0] + `</td>
                     <td>
                         <button type="button" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
@@ -50,3 +51,6 @@ axios.get('https://digital-queue-404.herokuapp.com/employees')
     .catch(e => {
         // Capturamos los errores
     })
+
+
+

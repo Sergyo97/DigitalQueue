@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/bootstrap-table.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -136,91 +137,15 @@
                         </div>
                     </div>
                 </div>
-
-                <script>
-
-
-
-
-                    var loading = document.getElementById('loading');
-                    var mensaje = document.getElementById('mensaje');
-
-
-
-                    var boton = document.getElementById('json_post');
-                    boton.addEventListener('click', function () {
-                        loading.style.display = 'block';
-                        axios.post('https://digital-queue-404.herokuapp.com/queues', {
-
-                            name: document.getElementById('recipient-name').value
-
-                        })
-                            .then(function (res) {
-                                if (res.status == 201) {
-                                    mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
-                                }
-                            })
-                            .catch(function (err) {
-                                console.log(err);
-                            })
-                            .then(function () {
-                                loading.style.display = 'none';
-                            });
-                    });
-
-
-                </script>
-
-                <table class="table mt-3 mx-5 w-75 ">
+                <table id="servicesTable" class="table mt-3 mx-5 w-75 ">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Name</th>
+                            <th data-field="name" scope="col">Name</th>
                             <th scope="col">Letter</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Custom Service</td>
-                            <td>CS</td>
-                            <td>
-                                <input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="info"
-                                    data-offstyle="secondary"></td>
-                            <td>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
 
-                        </tr>
-                        <tr>
-                            <td>Admisions</td>
-                            <td>A</td>
-                            <td>
-                                <input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="info"
-                                    data-offstyle="secondary"></td>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cashier</td>
-                            <td>CA</td>
-                            <td>
-                                <input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="info"
-                                    data-offstyle="secondary"></td>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </main>
         </div>
@@ -238,7 +163,9 @@
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/817a453e0c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.15.4/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/services.js"></script>
 
 </body>
 
