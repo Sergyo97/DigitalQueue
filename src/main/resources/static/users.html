@@ -160,16 +160,16 @@
                     var loading = document.getElementById('loading');
                     var mensaje = document.getElementById('mensaje');
 
-                
-                    
+
+
                     var boton = document.getElementById('json_post');
                     boton.addEventListener('click', function () {
                         loading.style.display = 'block';
-                        axios.post('http://localhost:8080/employees', {
-                            
+                        axios.post('http://digital-queue-404.herokuapp.com/employees', {
+
                                 name: document.getElementById('recipient-name').value,
                                 email: document.getElementById('recipient-email').value
-                        
+
                         })
                             .then(function (res) {
                                 if (res.status == 201) {
@@ -184,7 +184,7 @@
                             });
                     });
 
-                   
+
                 </script>
 
                 <table class="table mt-3 mx-5 w-75 ">
