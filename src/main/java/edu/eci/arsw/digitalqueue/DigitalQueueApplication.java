@@ -10,4 +10,7 @@ public class DigitalQueueApplication {
 		SpringApplication.run(DigitalQueueApplication.class, args);
 	}
 
+
+
+
 }
