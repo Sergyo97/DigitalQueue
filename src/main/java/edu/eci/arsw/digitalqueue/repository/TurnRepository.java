@@ -1,4 +1,4 @@
-package edu.eci.arsw.digitalqueue.persistence;
+package edu.eci.arsw.digitalqueue.repository;
 
 import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.model.Turn;
@@ -13,5 +13,5 @@ public interface TurnRepository extends JpaRepository<Turn, String> {
 
     Optional<Turn> findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
 
-    List<Turn> findByQueue(Queue queue);
+    List<Turn> findByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
 }

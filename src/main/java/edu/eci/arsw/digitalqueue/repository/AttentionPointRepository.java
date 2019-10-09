@@ -1,4 +1,4 @@
-package edu.eci.arsw.digitalqueue.persistence;
+package edu.eci.arsw.digitalqueue.repository;
 
 import java.util.List;
 
