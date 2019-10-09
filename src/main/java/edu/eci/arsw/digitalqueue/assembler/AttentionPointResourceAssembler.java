@@ -18,11 +18,9 @@ public class AttentionPointResourceAssembler implements ResourceAssembler<Attent
 
     @Override
     public Resource<AttentionPoint> toResource(AttentionPoint attentionPoint) {
-        return new Resource<AttentionPoint>(attentionPoint, 
+        return new Resource<AttentionPoint>(attentionPoint,
                 linkTo(methodOn(AttentionPointController.class).one(attentionPoint.getId())).withSelfRel(),
-                linkTo(AttentionPointController.class).all().withRel("attentionPoints"));
+                linkTo(methodOn(AttentionPointController.class).all()).withRel("attentionPoints"));
     }
 
-
-    
 }

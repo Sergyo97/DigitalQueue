@@ -17,7 +17,7 @@ public class TurnResourceAssembler  implements ResourceAssembler<Turn, Resource<
     public Resource<Turn> toResource(Turn turn) {
         return new Resource<Turn>(turn, 
                 linkTo(methodOn(TurnController.class).one(turn.getCode())).withSelfRel(),
-                linkTo(TurnController.class).all().withRel("turns"));
+                linkTo(methodOn(TurnController.class).all()).withRel("turns"));
     }
 }
 

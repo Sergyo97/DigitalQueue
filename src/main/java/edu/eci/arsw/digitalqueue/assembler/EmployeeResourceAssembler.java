@@ -18,11 +18,9 @@ public class EmployeeResourceAssembler implements ResourceAssembler<Employee, Re
 
     @Override
     public Resource<Employee> toResource(Employee employee) {
-        return new Resource<Employee>(employee, 
+        return new Resource<Employee>(employee,
                 linkTo(methodOn(EmployeeController.class).one(employee.getId())).withSelfRel(),
-                linkTo(EmployeeController.class).all().withRel("Employees"));
+                linkTo(methodOn(EmployeeController.class).all()).withRel("Employees"));
     }
 
-
-    
 }

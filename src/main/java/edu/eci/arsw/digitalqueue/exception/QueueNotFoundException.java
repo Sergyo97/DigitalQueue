@@ -1,6 +1,6 @@
 package edu.eci.arsw.digitalqueue.exception;
 
-public class QueueNotFoundException extends Exception {
+public class QueueNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

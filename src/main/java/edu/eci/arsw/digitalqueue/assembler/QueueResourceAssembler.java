@@ -10,13 +10,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
-public class QueueResourceAssembler  implements ResourceAssembler<Queue, Resource<Queue>>{
+public class QueueResourceAssembler implements ResourceAssembler<Queue, Resource<Queue>> {
 
     @Override
     public Resource<Queue> toResource(Queue queue) {
-        return new Resource<>(queue,
-                linkTo(methodOn(QueueController.class).one(queue.getId())).withSelfRel(),
+        return new Resource<>(queue, linkTo(methodOn(QueueController.class).one(queue.getId())).withSelfRel(),
                 linkTo(methodOn(QueueController.class).all()).withRel("queues"));
     }
 }
-

@@ -13,5 +13,5 @@ public interface TurnRepository extends JpaRepository<Turn, String> {
 
     Optional<Turn> findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
 
-    List<Turn> findByQueue(Queue queue);
+    List<Turn> findByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
 }

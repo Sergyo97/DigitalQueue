@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import edu.eci.arsw.digitalqueue.exception.TurnNotFoundException;
+import edu.eci.arsw.digitalqueue.exception.NoTurnsInQueueException;
 
 /**
  * TurnNotFoundAdvice
  */
 @ControllerAdvice
-public class TurnNotFoundAdvice {
+public class TurnAlreadyCancelledAdvice {
 
     @ResponseBody
-    @ExceptionHandler(TurnNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String turnNotFoundHandler(TurnNotFoundException exception) {
+    @ExceptionHandler(NoTurnsInQueueException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String noTurnsInQueueHandler(NoTurnsInQueueException exception) {
         return exception.getMessage();
     }
 
