@@ -165,10 +165,11 @@
                     var boton = document.getElementById('json_post');
                     boton.addEventListener('click', function () {
                         loading.style.display = 'block';
-                        axios.post('http://digital-queue-404.herokuapp.com/employees', {
 
-                                name: document.getElementById('recipient-name').value,
-                                email: document.getElementById('recipient-email').value
+                        //axios.post('http://digital-queue-404.herokuapp.com/employees', {
+                        axios.post('http://localhost:8080/employees', {
+                            name: document.getElementById('recipient-name').value,
+                            email: document.getElementById('recipient-email').value
 
                         })
                             .then(function (res) {
@@ -184,10 +185,9 @@
                             });
                     });
 
-
                 </script>
 
-                <table class="table mt-3 mx-5 w-75 ">
+                <table id="table" class="table mt-3 mx-5 w-75 ">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Name</th>
@@ -227,7 +227,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Willson Melo</td>
+                            <td data-field="name">Willson Melo</td>
                             <td>Willson.melo@digitalQueue.com</td>
                             <td>Service Manager</td>
                             <td>
@@ -266,6 +266,7 @@
     <script src="https://kit.fontawesome.com/817a453e0c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script> src = "js/users.js"</script>
 
 </body>
 
