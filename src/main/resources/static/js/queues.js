@@ -4,7 +4,7 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    axios.post('https://localhost:8080/queues', {
+    axios.post('https://digital-queue-404.herokuapp.com/queues', {
 
         name: document.getElementById('recipient-name').value
 
@@ -24,7 +24,7 @@ boton.addEventListener('click', function () {
 });
 
 
-axios.get('https://localhost:8080/queues')
+axios.get('https://digital-queue-404.herokuapp.com/queues')
     .then(response => {
 
         mydata = response.data;
