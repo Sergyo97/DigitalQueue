@@ -16,6 +16,7 @@ public class Queue {
     private String identifier; 
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turns;
+    private Boolean status;
 
     public Long getId() {
         return id;
@@ -40,4 +41,13 @@ public class Queue {
     public void setIdentifier(String identifier){
         this.identifier = identifier;
     }
+
+    public Boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(Boolean status){
+        this.status = status;
+    }
+
 }

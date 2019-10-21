@@ -42,12 +42,15 @@ axios.get('http://localhost:8080/queues')
                     <td>` + service.name + `</td>
                     <td>` + service.name[0] + `</td>
                     <td>
-                        <button type="button" onclick="deleteQueue(`+ service.id +`)" class="btn btn-danger">
+                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
+                    </td>
+                    <td>
+                        <button type="button" onclick="window.location.href='/attentionPoints.html'" class="btn btn-info">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
                     <td>
-                        <button type="button" onclick="window.location.href='/attentionPoints.html'" class="btn btn-info">
+                        <button type="button" onclick="deleteQueue(`+ service.id +`)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
