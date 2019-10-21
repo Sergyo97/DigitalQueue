@@ -1,31 +1,21 @@
 package edu.eci.arsw.digitalqueue.controller;
 
+import edu.eci.arsw.digitalqueue.assembler.QueueRepresentationModelAssembler;
+import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
+import edu.eci.arsw.digitalqueue.model.Queue;
+import edu.eci.arsw.digitalqueue.repository.QueueRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import edu.eci.arsw.digitalqueue.assembler.QueueResourceAssembler;
-import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
-import edu.eci.arsw.digitalqueue.model.Queue;
-import edu.eci.arsw.digitalqueue.repository.QueueRepository;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin
 @RestController
@@ -36,32 +26,32 @@ public class QueueController {
     private QueueRepository queueRepository;
 
     @Autowired
-    private QueueResourceAssembler queueResourceAssembler;
+    private QueueRepresentationModelAssembler queueRepresentationModelAssembler;
 
     @GetMapping
-    public Resources<Resource<Queue>> all() {
-        List<Resource<Queue>> queues = queueRepository.findAll().stream().map(queueResourceAssembler::toResource)
+    public CollectionModel<EntityModel<Queue>> all() {
+        List<EntityModel<Queue>> queues = queueRepository.findAll().stream().map(queueRepresentationModelAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return new Resources<>(queues, linkTo(methodOn(QueueController.class).all()).withSelfRel());
+        return new CollectionModel<>(queues, linkTo(QueueController.class).withSelfRel());
     }
 
     @PostMapping
     private ResponseEntity<?> add(@RequestBody Queue newQueue) throws URISyntaxException {
-        Resource<Queue> resource = queueResourceAssembler.toResource(queueRepository.save(newQueue));
+        EntityModel<Queue> entityModel = queueRepresentationModelAssembler.toModel(queueRepository.save(newQueue));
 
-        return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
     @GetMapping("/{id}")
-    public Resource<Queue> one(@PathVariable Long id) {
+    public EntityModel<Queue> one(@PathVariable Long id) {
         Queue queue = queueRepository.findById(id).orElseThrow(() -> new QueueNotFoundException(id));
 
-        return queueResourceAssembler.toResource(queue);
+        return queueRepresentationModelAssembler.toModel(queue);
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Resource<Queue>> update(@PathVariable Long id, @RequestBody Queue newQueue)
+    private ResponseEntity<EntityModel<Queue>> update(@PathVariable Long id, @RequestBody Queue newQueue)
             throws URISyntaxException {
         Queue updatedQueue = queueRepository.findById(id).map(queue -> {
             queue.setName(newQueue.getName());
@@ -71,9 +61,9 @@ public class QueueController {
             return queueRepository.save(newQueue);
         });
 
-        Resource<Queue> resource = queueResourceAssembler.toResource(updatedQueue);
+        EntityModel<Queue> entityModel = queueRepresentationModelAssembler.toModel(updatedQueue);
 
-        return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
     @DeleteMapping("/{id}")

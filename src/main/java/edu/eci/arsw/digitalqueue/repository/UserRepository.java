@@ -1,13 +1,14 @@
 package edu.eci.arsw.digitalqueue.repository;
 
+import edu.eci.arsw.digitalqueue.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import edu.eci.arsw.digitalqueue.model.Employee;
+
 import java.util.Optional;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Employee> findByEmail(String email);
+    Optional<User> findByEmail(String email);
     
 }

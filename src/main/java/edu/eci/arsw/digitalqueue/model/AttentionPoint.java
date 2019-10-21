@@ -20,7 +20,7 @@ public class AttentionPoint {
     private Boolean enable;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    private Employee employee;
+    private User employee;
     @OneToMany(mappedBy = "attentionPoint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turns;
 
@@ -48,15 +48,12 @@ public class AttentionPoint {
         this.enable = enable;
     }
 
-    public Employee getEmployee() {
+    public User getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(User employee) {
         this.employee = employee;
     }
-
-
-
 
 }

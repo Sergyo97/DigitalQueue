@@ -1,10 +1,10 @@
 package edu.eci.arsw.digitalqueue.exception;
 
-public class EmployeeNotFoundException extends RuntimeException {
+public class UserNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public EmployeeNotFoundException(Long id) {
+    public UserNotFoundException(Long id) {
         super("Could not find employee " + id);
     }
 

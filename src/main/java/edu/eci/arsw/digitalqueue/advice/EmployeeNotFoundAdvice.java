@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import edu.eci.arsw.digitalqueue.exception.EmployeeNotFoundException;
+import edu.eci.arsw.digitalqueue.exception.UserNotFoundException;
 
 /**
  * EmployeeNotFoundAdvice
@@ -15,10 +15,10 @@ import edu.eci.arsw.digitalqueue.exception.EmployeeNotFoundException;
 public class EmployeeNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(EmployeeNotFoundException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
 
-    String employeeNotFoundHandler(EmployeeNotFoundException exception){
+    String employeeNotFoundHandler(UserNotFoundException exception){
         return exception.getMessage();
     }
 
