@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-@CrossOrigin
 @RestController
 @RequestMapping(value = "queues", produces = "application/json")
 public class QueueController {
