@@ -4,8 +4,8 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    //http://localhost:8080/employees
-    axios.post('https://digital-queue-404.herokuapp.com/employees', {
+    //https://digital-queue-404.herokuapp.com/users
+    axios.post('http://localhost:8080/users', {
         name: document.getElementById('recipient-name').value,
         email: document.getElementById('recipient-email').value
 
@@ -23,17 +23,18 @@ boton.addEventListener('click', function () {
         });
 });
 
-//http://localhost:8080/employees
-axios.get('https://digital-queue-404.herokuapp.com/employees')
+//http://localhost:8080/users
+axios.get('http://localhost:8080/users')
     .then(response => {
         mydata = response.data;
-        mydata = mydata._embedded.employeeList;
+        mydata = mydata._embedded.userList;
         // $('#table1').bootstrapTable({
         //     data: mydata
         // });
+        console.log(mydata);
         mydata.forEach(employee => {
             $('#employeeTable').append(`
-                <tr>
+                <tr>    
                     <td>` + employee.name + `</td>
                     <td>` + employee.email + `</td>
                     <td>Admin</td>

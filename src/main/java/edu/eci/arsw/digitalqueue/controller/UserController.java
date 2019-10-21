@@ -19,7 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "employees", produces = "application/json")
+@RequestMapping(value = "users", produces = "application/json")
 public class UserController {
 
     @Autowired
