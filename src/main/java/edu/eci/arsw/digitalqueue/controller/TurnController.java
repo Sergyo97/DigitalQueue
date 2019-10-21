@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-@CrossOrigin
 @RestController
 @RequestMapping(value = "turns", produces = "application/json")
 public class TurnController {

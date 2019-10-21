@@ -5,7 +5,7 @@ var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
     //http://localhost:8080/employees
-    axios.post('https://digital-queue-404.herokuapp.com/employees', {
+    axios.post('https://localhost:8080/users', {
         name: document.getElementById('recipient-name').value,
         email: document.getElementById('recipient-email').value
 
@@ -24,7 +24,7 @@ boton.addEventListener('click', function () {
 });
 
 //http://localhost:8080/employees
-axios.get('https://digital-queue-404.herokuapp.com/employees')
+axios.get('https://localhost:8080/users')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.employeeList;

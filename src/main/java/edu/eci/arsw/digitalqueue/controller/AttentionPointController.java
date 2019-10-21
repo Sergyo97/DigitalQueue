@@ -20,7 +20,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 /**
  * AttentionPointController
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "attentionPoints", produces = "application/json")
 public class AttentionPointController {
