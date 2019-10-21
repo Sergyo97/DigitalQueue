@@ -1,19 +1,19 @@
 package edu.eci.arsw.digitalqueue.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "employees")
-public class Employee{
+@Table(name = "users")
+public class User {
 
-
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private String email;
+    @ManyToMany
+    private Set<Role> roles;
     @OneToOne(mappedBy = "employee")
     private AttentionPoint attentionPoint;
 
@@ -39,6 +39,14 @@ public class Employee{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public AttentionPoint getAttentionPoint() {
