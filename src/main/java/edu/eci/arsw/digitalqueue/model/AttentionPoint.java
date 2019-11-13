@@ -61,4 +61,12 @@ public class AttentionPoint {
         this.employee = employee;
     }
 
+    public Queue getQueue(){
+        return queue;
+    }
+
+    public void setQueue(Queue queue){
+        this.queue = queue;
+    }
+
 }

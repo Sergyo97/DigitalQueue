@@ -13,7 +13,7 @@ public class Queue {
 
     private @Id @GeneratedValue Long id;
     private String name;
-    private String identifier; 
+    private String identifier;
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turns;
     private Boolean status;

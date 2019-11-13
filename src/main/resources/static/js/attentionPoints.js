@@ -5,8 +5,10 @@ var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
     //https://localhost:8080/users
+
     axios.post('https://localhost:8080/attentionPoints', {
-        code: document.getElementById('recipient-code').value
+        code: $('#recipient-code').val(),
+        queue: getQueueById(2)
 
     })
         .then(function (res) {
@@ -17,9 +19,6 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
-        .then(function () {
-            loading.style.display = 'none';
-        });
 });
 
 //http://localhost:8080/users
@@ -33,13 +32,13 @@ axios.get('https://localhost:8080/attentionPoints')
         console.log(mydata);
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
-                <tr>    
+                <tr>
                     <td>` + attentionPoint.code + `</td>
                     <td>` + "True" + `</td>
                     <td>` + "Sergio" + `</td>
                     <td>` + "1" + `</td>
                     <td>
-                        <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id +`)" class="btn btn-danger">
+                        <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -54,7 +53,7 @@ axios.get('https://localhost:8080/attentionPoints')
 
 function deleteAttentionPoint(id) {
     axios.delete("https://localhost:8080/attentionPoints/" + id).then(function (response) {
-        
+
     })
 
 }
@@ -69,4 +68,19 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+function getQueueById(queueid) {
+    var queue
+    axios.get('https://localhost:8080/queues/' + queueid)
+        .then(response => {
+        queue = response.data
+        console.log(queue)
+
+        }).catch(e => {
+            // Capturamos los errores
+        })
+
+    return queue;
 }
