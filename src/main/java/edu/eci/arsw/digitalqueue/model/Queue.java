@@ -17,6 +17,8 @@ public class Queue {
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turns;
     private Boolean status;
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Turn> attentionPoints;
 
     public Long getId() {
         return id;

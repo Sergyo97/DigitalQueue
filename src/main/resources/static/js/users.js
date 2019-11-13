@@ -4,8 +4,8 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    //https://digital-queue-404.herokuapp.com/users
-    axios.post('https://digital-queue-404.herokuapp.com/users', {
+    //https://localhost:8080/users
+    axios.post('https://localhost:8080/users', {
         name: document.getElementById('recipient-name').value,
         email: document.getElementById('recipient-email').value
 
@@ -24,7 +24,7 @@ boton.addEventListener('click', function () {
 });
 
 //http://localhost:8080/users
-axios.get('https://digital-queue-404.herokuapp.com/users')
+axios.get('https://localhost:8080/users')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.userList;

@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,6 +25,9 @@ public class AttentionPoint {
     private User employee;
     @OneToMany(mappedBy = "attentionPoint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turns;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "queue_id")
+    private Queue queue;
 
     public Long getId() {
         return id;

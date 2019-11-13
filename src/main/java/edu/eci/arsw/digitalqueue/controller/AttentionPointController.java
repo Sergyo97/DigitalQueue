@@ -2,8 +2,12 @@ package edu.eci.arsw.digitalqueue.controller;
 
 import edu.eci.arsw.digitalqueue.assembler.AttentionPointRepresentationModelAssembler;
 import edu.eci.arsw.digitalqueue.exception.AttentionPointNotFoundException;
+import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
 import edu.eci.arsw.digitalqueue.model.AttentionPoint;
+import edu.eci.arsw.digitalqueue.model.Queue;
 import edu.eci.arsw.digitalqueue.repository.AttentionPointRepository;
+import edu.eci.arsw.digitalqueue.repository.QueueRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -28,10 +32,21 @@ public class AttentionPointController {
     private AttentionPointRepository attentionPointRepository;
 
     @Autowired
+    private QueueRepository queueRepository;
+
+    @Autowired
     private AttentionPointRepresentationModelAssembler attentionPointRepresentationModelAssembler;
 
     @GetMapping
-    public CollectionModel<EntityModel<AttentionPoint>> all() {
+    public CollectionModel<EntityModel<AttentionPoint>> all(@RequestParam(required = false) Long queueId) {
+        if (queueId != null) {
+            Queue queue = queueRepository.findById(queueId).orElseThrow(() -> new QueueNotFoundException(queueId));
+            List<EntityModel<AttentionPoint>> attentionPoints = attentionPointRepository.findByQueue(queue).stream()
+                    .map(attentionPointRepresentationModelAssembler::toModel).collect(Collectors.toList());
+
+            return new CollectionModel<>(attentionPoints, linkTo(AttentionPointController.class).withSelfRel());
+        }
+
         List<EntityModel<AttentionPoint>> attentionPoints = attentionPointRepository.findAll().stream()
                 .map(attentionPointRepresentationModelAssembler::toModel).collect(Collectors.toList());
 
@@ -43,7 +58,8 @@ public class AttentionPointController {
         EntityModel<AttentionPoint> entityModel = attentionPointRepresentationModelAssembler
                 .toModel(attentionPointRepository.save(newAttentionPoint));
 
-        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref()))
+                .body(entityModel);
     }
 
     @GetMapping("/{id}")
@@ -55,8 +71,8 @@ public class AttentionPointController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<EntityModel<AttentionPoint>> update(@PathVariable Long id, @RequestBody AttentionPoint newAttentionPoint)
-            throws URISyntaxException {
+    private ResponseEntity<EntityModel<AttentionPoint>> update(@PathVariable Long id,
+            @RequestBody AttentionPoint newAttentionPoint) throws URISyntaxException {
         AttentionPoint updatedAttentionPoint = attentionPointRepository.findById(id).map(attentionPoint -> {
             attentionPoint.setCode(newAttentionPoint.getCode());
             attentionPoint.setEmployee(newAttentionPoint.getEmployee());
@@ -67,9 +83,11 @@ public class AttentionPointController {
             return attentionPointRepository.save(newAttentionPoint);
         });
 
-        EntityModel<AttentionPoint> entityModel = attentionPointRepresentationModelAssembler.toModel(updatedAttentionPoint);
+        EntityModel<AttentionPoint> entityModel = attentionPointRepresentationModelAssembler
+                .toModel(updatedAttentionPoint);
 
-        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref()))
+                .body(entityModel);
     }
 
     @DeleteMapping("/{id}")

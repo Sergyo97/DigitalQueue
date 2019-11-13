@@ -4,8 +4,8 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    //https://digital-queue-404.herokuapp.com/users
-    axios.post('https://digital-queue-404.herokuapp.com/attentionPoints', {
+    //https://localhost:8080/users
+    axios.post('https://localhost:8080/attentionPoints', {
         code: document.getElementById('recipient-code').value
 
     })
@@ -23,7 +23,7 @@ boton.addEventListener('click', function () {
 });
 
 //http://localhost:8080/users
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
+axios.get('https://localhost:8080/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
@@ -53,8 +53,20 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
     })
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id).then(function (response) {
-        window.location.reload
+    axios.delete("https://localhost:8080/attentionPoints/" + id).then(function (response) {
+        
     })
 
+}
+
+var queue = getParameterByName('queueId'); // "lorem"
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
