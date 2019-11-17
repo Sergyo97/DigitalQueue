@@ -5,9 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import edu.eci.arsw.digitalqueue.model.Queue;
 
+import java.util.Optional;
+
 @Repository
 public interface QueueRepository extends JpaRepository<Queue, Long> {
 
-    Queue findByName(String name);
+    Optional<Queue> findByName(String name);
 
 }

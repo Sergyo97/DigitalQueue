@@ -6,7 +6,9 @@ boton.addEventListener('click', function () {
     loading.style.display = 'block';
     axios.post('https://localhost:8080/queues', {
 
-        name: document.getElementById('recipient-name').value
+        name: $('#recipient-name').val(),
+        identifier: $('#recipient-letter').val(),
+        status: true
 
     })
         .then(function (res) {

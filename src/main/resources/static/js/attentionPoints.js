@@ -2,6 +2,11 @@
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
+boton.addEventListener('click', function () {
+    loading.style.display = 'block';
+    //https://localhost:8080/users
+    axios.post('https://localhost:8080/attentionPoints', {
+        code: document.getElementById('recipient-code').value
 
 axios.get('https://localhost:8080/queues/')
     .then(response => {        
@@ -81,6 +86,7 @@ boton.addEventListener('click', function () {
 
 function deleteAttentionPoint(id) {
     axios.delete("https://localhost:8080/attentionPoints/" + id).then(function (response) {
+        window.location.reload
     })
 
 }
