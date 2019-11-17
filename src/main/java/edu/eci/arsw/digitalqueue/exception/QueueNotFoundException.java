@@ -4,8 +4,8 @@ public class QueueNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public QueueNotFoundException(Long id) {
-        super("Could not find queue " + id);
+    public QueueNotFoundException(String name) {
+        super("Could not find queue " + name);
     }
 
 }

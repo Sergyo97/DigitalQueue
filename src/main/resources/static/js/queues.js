@@ -4,9 +4,11 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    axios.post('https://digital-queue-404.herokuapp.com/queues', {
+    axios.post('https://localhost:8080/queues', {
 
-        name: document.getElementById('recipient-name').value
+        name: $('#recipient-name').val(),
+        identifier: $('#recipient-letter').val(),
+        status: true
 
     })
         .then(function (res) {
@@ -24,7 +26,7 @@ boton.addEventListener('click', function () {
 });
 
 
-axios.get('https://digital-queue-404.herokuapp.com/queues')
+axios.get('https://localhost:8080/queues')
     .then(response => {
 
         mydata = response.data;
@@ -63,7 +65,7 @@ axios.get('https://digital-queue-404.herokuapp.com/queues')
 
 
 function deleteQueue(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/queues/"+ id ).then(function (response) {
+    axios.delete("https://localhost:8080/queues/"+ id ).then(function (response) {
         window.location.reload
     })
     
