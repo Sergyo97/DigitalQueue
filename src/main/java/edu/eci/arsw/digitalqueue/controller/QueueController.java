@@ -42,9 +42,9 @@ public class QueueController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
-    @GetMapping("/{id}")
-    public EntityModel<Queue> one(@PathVariable Long id) {
-        Queue queue = queueRepository.findById(id).orElseThrow(() -> new QueueNotFoundException(id));
+    @GetMapping("/{name}")
+    public EntityModel<Queue> one(@PathVariable String name) {
+        Queue queue = queueRepository.findByName(name).orElseThrow(() -> new QueueNotFoundException(name));
 
         return queueRepresentationModelAssembler.toModel(queue);
     }
