@@ -33,8 +33,8 @@ axios.get('https://localhost:8080/attentionPoints')
             $('#attentionPointsTable').append(`
                 <tr>
                     <td>` + attentionPoint.code + `</td>
-                    <td>` + "True" + `</td>
-                    <td>` + "Sergio" + `</td>
+                    <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
+                    <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
                         <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id + `)" class="btn btn-danger">
