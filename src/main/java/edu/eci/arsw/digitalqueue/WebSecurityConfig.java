@@ -21,15 +21,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .httpBasic()
-                .and()
                 .requiresChannel()
                 .anyRequest()
                 .requiresSecure()
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/")
-                .authenticated()
+                .permitAll()
                 .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
@@ -51,8 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH, "/attentionPoints/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/attentionPoints/**").hasRole("ADMIN")
                 .and()
+                .formLogin()
+                .defaultSuccessUrl("/dashboard.html")
+                .and()  
                 .csrf().disable()
-                .cors().disable()
-                .formLogin().disable();
+                .cors().disable();
     }
 }
