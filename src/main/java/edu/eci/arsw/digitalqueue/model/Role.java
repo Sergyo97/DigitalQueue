@@ -1,19 +1,18 @@
 package edu.eci.arsw.digitalqueue.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
-    private String description;
-    @ManyToMany
-    private Set<User> users;
 
     public Long getId() {
         return id;
@@ -31,20 +30,8 @@ public class Role {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String getAuthority() {
+        return name;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
 }
