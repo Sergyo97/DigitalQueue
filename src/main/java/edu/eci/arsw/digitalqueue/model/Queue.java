@@ -13,8 +13,8 @@ public class Queue {
 
     private @Id @GeneratedValue Long id;
     private String name;
-    private String identifier; 
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private String identifier;
+    @OneToMany(mappedBy = "queue")
     private List<Turn> turns;
     private Boolean status;
 
@@ -48,6 +48,14 @@ public class Queue {
 
     public void setStatus(Boolean status){
         this.status = status;
+    }
+
+    public List<Turn> getTurns() {
+        return turns;
+    }
+
+    public void setTurns(List<Turn> turns) {
+        this.turns = turns;
     }
 
 }
