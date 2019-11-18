@@ -14,11 +14,11 @@ public class Queue {
     private @Id @GeneratedValue Long id;
     private String name;
     private String identifier;
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "queue")
     private List<Turn> turns;
     private Boolean status;
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Turn> attentionPoints;
+    @OneToMany(mappedBy = "queue")
+    private List<AttentionPoint> attentionPoints;
 
     public Long getId() {
         return id;
@@ -50,6 +50,34 @@ public class Queue {
 
     public void setStatus(Boolean status){
         this.status = status;
+    }
+
+    /**
+     * @return the attentionPoints
+     */
+    public List<AttentionPoint> getAttentionPoints() {
+        return attentionPoints;
+    }
+
+    /**
+     * @param attentionPoints the attentionPoints to set
+     */
+    public void setAttentionPoints(List<AttentionPoint> attentionPoints) {
+        this.attentionPoints = attentionPoints;
+    }
+
+    /**
+     * @return the turns
+     */
+    public List<Turn> getTurns() {
+        return turns;
+    }
+
+    /**
+     * @param turns the turns to set
+     */
+    public void setTurns(List<Turn> turns) {
+        this.turns = turns;
     }
 
 }

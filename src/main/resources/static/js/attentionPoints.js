@@ -2,11 +2,7 @@
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
-boton.addEventListener('click', function () {
-    loading.style.display = 'block';
-    //https://localhost:8080/users
-    axios.post('https://localhost:8080/attentionPoints', {
-        code: document.getElementById('recipient-code').value
+
 
 axios.get('https://localhost:8080/queues/')
     .then(response => {        
@@ -22,7 +18,6 @@ axios.get('https://localhost:8080/queues/')
 
 axios.get('https://localhost:8080/users/')
     .then(response => {
-        console.log(response)
         var users = response.data._embedded.userList;
 
         users.forEach(user => {
@@ -37,7 +32,7 @@ axios.get('https://localhost:8080/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
-        
+        console.log(mydata)
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
                 <tr>
@@ -64,15 +59,15 @@ boton.addEventListener('click', function () {
     loading.style.display = 'block';
     //https://localhost:8080/users
 
-    axios.post('https://localhost:8080/attentionPoints', {
+    var attentionPoint = {
         code: $('#recipient-code').val(),
-        queue: JSON.parse(localStorage.getItem('queues')).find(queue => {
-            return queue.name == $('#services').val()
-        }),
-        employee: JSON.parse(localStorage.getItem('users')).find(user => {
-            return user.email == $('#services').val()
+       
+        user: JSON.parse(localStorage.getItem('users')).find(user => {
+            return user.email == $('#users').val()
         })
-    })
+    }
+    console.log(attentionPoint);
+    axios.post('https://localhost:8080/attentionPoints', attentionPoint)
         .then(function (res) {
             if (res.status == 201) {
                 mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;

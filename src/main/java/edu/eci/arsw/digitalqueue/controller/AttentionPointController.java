@@ -38,9 +38,9 @@ public class AttentionPointController {
     private AttentionPointRepresentationModelAssembler attentionPointRepresentationModelAssembler;
 
     @GetMapping
-    public CollectionModel<EntityModel<AttentionPoint>> all(@RequestParam(required = false) Long queueId) {
-        if (queueId != null) {
-            Queue queue = queueRepository.findById(queueId).orElseThrow(() -> new QueueNotFoundException(queueId));
+    public CollectionModel<EntityModel<AttentionPoint>> all(@RequestParam(required = false) String queueName) {
+        if (queueName != null) {
+            Queue queue = queueRepository.findByName(queueName).orElseThrow(() -> new QueueNotFoundException(queueName));
             List<EntityModel<AttentionPoint>> attentionPoints = attentionPointRepository.findByQueue(queue).stream()
                     .map(attentionPointRepresentationModelAssembler::toModel).collect(Collectors.toList());
 
@@ -75,7 +75,7 @@ public class AttentionPointController {
             @RequestBody AttentionPoint newAttentionPoint) throws URISyntaxException {
         AttentionPoint updatedAttentionPoint = attentionPointRepository.findById(id).map(attentionPoint -> {
             attentionPoint.setCode(newAttentionPoint.getCode());
-            attentionPoint.setEmployee(newAttentionPoint.getEmployee());
+            attentionPoint.setUser(newAttentionPoint.getUser());
             attentionPoint.setEnable(newAttentionPoint.getEnable());
             return attentionPointRepository.save(attentionPoint);
         }).orElseGet(() -> {
