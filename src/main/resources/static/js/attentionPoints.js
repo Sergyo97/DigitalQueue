@@ -5,15 +5,14 @@ var boton = document.getElementById('json_post');
 
 
 axios.get('https://localhost:8080/queues/')
-    .then(response => {        
+    .then(response => {
         var queues = response.data._embedded.queueList;
 
         queues.forEach(queue => {
             $('#services').append(`<option>` + queue.name + `</option>`);
         });
         localStorage.setItem('queues', JSON.stringify(queues));
-    }
-    );
+    });
 
 
 axios.get('https://localhost:8080/users/')
@@ -21,18 +20,15 @@ axios.get('https://localhost:8080/users/')
         var users = response.data._embedded.userList;
 
         users.forEach(user => {
-            $('#users').append(`<option>` + user.email+ `</option>`);
+            $('#users').append(`<option>` + user.email + `</option>`);
         });
         localStorage.setItem('users', JSON.stringify(users));
-    }
-    );
+    });
 
-//http://localhost:8080/users
 axios.get('https://localhost:8080/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
-        console.log(mydata)
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
                 <tr>
@@ -57,18 +53,22 @@ axios.get('https://localhost:8080/attentionPoints')
 
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    //https://localhost:8080/users
 
+    var agent = JSON.parse(localStorage.getItem('users')).find(user => {
+        return user.email == $('#users').val()
+    });
+    var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
+        return queue.name == $('#services').val()
+    })
     var attentionPoint = {
         code: $('#recipient-code').val(),
-       
-        user: JSON.parse(localStorage.getItem('users')).find(user => {
-            return user.email == $('#users').val()
-        })
+        user: agent,
+        queue: queue,
+        enable: true
     }
     console.log(attentionPoint);
     axios.post('https://localhost:8080/attentionPoints', attentionPoint)
-        .then(function (res) {
+        .then(res => {
             if (res.status == 201) {
                 mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
             }
@@ -80,12 +80,9 @@ boton.addEventListener('click', function () {
 
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://localhost:8080/attentionPoints/" + id).then(function (response) {
-        window.location.reload
-    })
+    axios.delete("https://localhost:8080/attentionPoints/" + id)
+        .then(function (response) {
+            window.location.reload
+        })
 
 }
-
-
-
-

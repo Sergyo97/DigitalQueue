@@ -17,8 +17,6 @@ public class Queue {
     @OneToMany(mappedBy = "queue")
     private List<Turn> turns;
     private Boolean status;
-    @OneToMany(mappedBy = "queue")
-    private List<AttentionPoint> attentionPoints;
 
     public Long getId() {
         return id;
@@ -52,30 +50,10 @@ public class Queue {
         this.status = status;
     }
 
-    /**
-     * @return the attentionPoints
-     */
-    public List<AttentionPoint> getAttentionPoints() {
-        return attentionPoints;
-    }
-
-    /**
-     * @param attentionPoints the attentionPoints to set
-     */
-    public void setAttentionPoints(List<AttentionPoint> attentionPoints) {
-        this.attentionPoints = attentionPoints;
-    }
-
-    /**
-     * @return the turns
-     */
     public List<Turn> getTurns() {
         return turns;
     }
 
-    /**
-     * @param turns the turns to set
-     */
     public void setTurns(List<Turn> turns) {
         this.turns = turns;
     }

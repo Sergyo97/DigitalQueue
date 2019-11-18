@@ -14,8 +14,6 @@ public class User {
     private String email;
     @ManyToMany
     private Set<Role> roles;
-    @OneToOne(mappedBy = "user")
-    private AttentionPoint attentionPoint;
 
     public Long getId() {
         return id;
@@ -47,24 +45,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public AttentionPoint getAttentionPoint() {
-        return attentionPoint;
-    }
-
-    public void setAttentionPoint(AttentionPoint attentionPoint) {
-        if (sameAsFormer(attentionPoint))
-            return;
-        AttentionPoint oldAttentionPoint = this.attentionPoint;
-        this.attentionPoint = attentionPoint;
-        if (oldAttentionPoint != null)
-            oldAttentionPoint.setUser(null);
-        if (attentionPoint != null)
-            attentionPoint.setUser(this);
-    }
-
-    private boolean sameAsFormer(AttentionPoint newAttentionPoint) {
-        return attentionPoint == null ? newAttentionPoint == null : attentionPoint.equals(newAttentionPoint);
     }
 }
