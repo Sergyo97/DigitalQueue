@@ -47,6 +47,7 @@ axios.get('https://localhost:8080/attentionPoints'+queueName)
                 <tr>
                     <td>` + attentionPoint.code + `</td>
                     <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
+                    <td>` + attentionPoint.queue.name + `</td>
                     <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
