@@ -2,44 +2,53 @@
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
-boton.addEventListener('click', function () {
-    loading.style.display = 'block';
-    //https://localhost:8080/users
-    axios.post('https://localhost:8080/attentionPoints', {
-        code: document.getElementById('recipient-code').value
 
-    })
-        .then(function (res) {
-            if (res.status == 201) {
-                mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
-            }
-        })
-        .catch(function (err) {
-            console.log(err);
-        })
-        .then(function () {
-            loading.style.display = 'none';
+var queueName = getParameterByName('queueName');
+console.log(queueName)
+if(!queueName){
+    queueName = "";
+}else{
+    queueName = "?queueName="+queueName;
+}
+console.log(queueName)
+//console.log(window.location.href);
+
+
+axios.get('https://digital-queue-404.herokuapp.com/queues/')
+    .then(response => {
+        var queues = response.data._embedded.queueList;
+
+        queues.forEach(queue => {
+            $('#services').append(`<option>` + queue.name + `</option>`);
         });
-});
+        localStorage.setItem('queues', JSON.stringify(queues));
+    });
 
-//http://localhost:8080/users
-axios.get('https://localhost:8080/attentionPoints')
+
+axios.get('https://digital-queue-404.herokuapp.com/users/')
+    .then(response => {
+        var users = response.data._embedded.userList;
+
+        users.forEach(user => {
+            $('#users').append(`<option>` + user.email + `</option>`);
+        });
+        localStorage.setItem('users', JSON.stringify(users));
+    });
+
+axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
-        // $('#table1').bootstrapTable({
-        //     data: mydata
-        // });
-        console.log(mydata);
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
-                <tr>    
+                <tr>
                     <td>` + attentionPoint.code + `</td>
-                    <td>` + "True" + `</td>
-                    <td>` + "Sergio" + `</td>
+                    <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
+                    <td>` + attentionPoint.queue.name + `</td>
+                    <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
-                        <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id +`)" class="btn btn-danger">
+                        <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -50,11 +59,52 @@ axios.get('https://localhost:8080/attentionPoints')
     })
     .catch(e => {
         // Capturamos los errores
+    }
+    )
+
+boton.addEventListener('click', function () {
+    loading.style.display = 'block';
+
+    var agent = JSON.parse(localStorage.getItem('users')).find(user => {
+        return user.email == $('#users').val()
+    });
+    var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
+        return queue.name == $('#services').val()
     })
+    var attentionPoint = {
+        code: $('#recipient-code').val(),
+        user: agent,
+        queue: queue,
+        enable: true
+    }
+    console.log(attentionPoint);
+    axios.post('https://digital-queue-404.herokuapp.com/attentionPoints', attentionPoint)
+        .then(res => {
+            if (res.status == 201) {
+                mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+});
+
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://localhost:8080/attentionPoints/" + id).then(function (response) {
-        window.location.reload
-    })
+    axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id)
+        .then(function (response) {
+            window.location.reload
+        })
 
+}
+
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
