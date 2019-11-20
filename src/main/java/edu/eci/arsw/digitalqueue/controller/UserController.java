@@ -55,7 +55,6 @@ public class UserController {
         User updatedEmployee = userRepository.findById(id).map(employee -> {
             employee.setName(newUser.getName());
             employee.setEmail(newUser.getEmail());
-            employee.setAttentionPoint(newUser.getAttentionPoint());
             return userRepository.save(employee);
         }).orElseGet(() -> {
             newUser.setId(id);
