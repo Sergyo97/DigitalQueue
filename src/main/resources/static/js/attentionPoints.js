@@ -3,6 +3,16 @@ var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 
+var queueName = getParameterByName('queueName');
+console.log(queueName)
+if(!queueName){
+    queueName = "";
+}else{
+    queueName = "?queueName="+queueName;
+}
+console.log(queueName)
+//console.log(window.location.href);
+
 
 axios.get('https://localhost:8443/queues/')
     .then(response => {
@@ -34,6 +44,7 @@ axios.get('https://localhost:8443/attentionPoints')
                 <tr>
                     <td>` + attentionPoint.code + `</td>
                     <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
+                    <td>` + attentionPoint.queue.name + `</td>
                     <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
@@ -85,4 +96,15 @@ function deleteAttentionPoint(id) {
             window.location.reload
         })
 
+}
+
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
