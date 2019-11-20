@@ -64,4 +64,16 @@ public class AttentionPoint {
         this.queue = queue;
     }
 
+    public List<Turn> getTurns() {
+        return turns;
+    }
+
+    public void setTurns(List<Turn> turns) {
+        this.turns = turns;
+    }
+
+    public void addTurn(Turn turn){
+        turns.add(turn);
+    }
+
 }
