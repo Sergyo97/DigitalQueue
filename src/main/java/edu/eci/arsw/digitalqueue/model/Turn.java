@@ -1,13 +1,10 @@
 package edu.eci.arsw.digitalqueue.model;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "turns")
@@ -17,13 +14,11 @@ public class Turn {
     private String clientName;
     private Timestamp requestedDateTime;
     private Timestamp attendedDateTime;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "queue_id")
+    @ManyToOne
     private Queue queue;
     private Boolean attended;
     private Boolean cancelled;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attention_point_id")
+    @ManyToOne
     private AttentionPoint attentionPoint;
 
     public String getCode() {
