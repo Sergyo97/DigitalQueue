@@ -45,7 +45,7 @@ axios.get('https://localhost:8080/queues')
                         <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
                     </td>
                     <td>
-                        <button type="button" onclick="window.location.href='/attentionPoints.html'" class="btn btn-info">
+                        <button type="button" onclick="window.location.href='/attentionPoints.html?queueName=` + service.name + ` '" class="btn btn-info">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>

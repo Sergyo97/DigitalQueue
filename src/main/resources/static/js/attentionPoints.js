@@ -4,6 +4,19 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 
 
+
+
+var queueName = getParameterByName('queueName');
+console.log(queueName)
+if(!queueName){
+    queueName = "";
+}else{
+    queueName = "?queueName="+queueName;
+}
+console.log(queueName)
+//console.log(window.location.href);
+
+
 axios.get('https://localhost:8080/queues/')
     .then(response => {
         var queues = response.data._embedded.queueList;
@@ -25,7 +38,7 @@ axios.get('https://localhost:8080/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-axios.get('https://localhost:8080/attentionPoints')
+axios.get('https://localhost:8080/attentionPoints'+queueName)
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
@@ -85,4 +98,15 @@ function deleteAttentionPoint(id) {
             window.location.reload
         })
 
+}
+
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
