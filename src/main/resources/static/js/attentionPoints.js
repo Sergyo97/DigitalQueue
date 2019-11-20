@@ -54,7 +54,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
                     </td>
 
                 </tr>
-                
+
             `)
         });
     })
