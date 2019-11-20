@@ -1,12 +1,12 @@
 package edu.eci.arsw.digitalqueue.controller;
 
 import edu.eci.arsw.digitalqueue.assembler.TurnRepresentationModelAssembler;
-import edu.eci.arsw.digitalqueue.exception.NoTurnsInQueueException;
-import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
+import edu.eci.arsw.digitalqueue.exception.NoTurnsInServiceException;
+import edu.eci.arsw.digitalqueue.exception.ServiceNotFoundException;
 import edu.eci.arsw.digitalqueue.exception.TurnAlreadyCancelledException;
 import edu.eci.arsw.digitalqueue.exception.TurnNotFoundException;
 import edu.eci.arsw.digitalqueue.model.Turn;
-import edu.eci.arsw.digitalqueue.repository.QueueRepository;
+import edu.eci.arsw.digitalqueue.repository.ServiceRepository;
 import edu.eci.arsw.digitalqueue.repository.TurnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -29,7 +29,7 @@ public class TurnController {
     private TurnRepository turnRepository;
 
     @Autowired
-    private QueueRepository queueRepository;
+    private ServiceRepository serviceRepository;
 
     @Autowired
     private TurnRepresentationModelAssembler turnRepresentationModelAssembler;
@@ -57,26 +57,26 @@ public class TurnController {
     }
 
     @GetMapping("/count")
-    public int inQueue(@RequestParam String queue) {
-        return turnRepository.findByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(
-                queueRepository.findByName(queue).orElseThrow(() -> new QueueNotFoundException(queue))
+    public int inQueue(@RequestParam String service) {
+        return turnRepository.findByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
+                serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
         ).size();
     }
 
     @GetMapping("/next")
-    public EntityModel<Turn> nextInQueue(@RequestParam String queue) {
-        Turn turn = turnRepository.findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeAsc(
-                queueRepository.findByName(queue).orElseThrow(() -> new QueueNotFoundException(queue))
-        ).orElseThrow(() -> new NoTurnsInQueueException(queue));
+    public EntityModel<Turn> nextInQueue(@RequestParam String service) {
+        Turn turn = turnRepository.findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeAsc(
+                serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
+        ).orElseThrow(() -> new NoTurnsInServiceException(service));
 
         return turnRepresentationModelAssembler.toModel(turn);
     }
 
     @GetMapping("/last")
-    public EntityModel<Turn> lastInQueue(@RequestParam String queue) {
-        Turn turn = turnRepository.findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(
-                queueRepository.findByName(queue).orElseThrow(() -> new QueueNotFoundException(queue))
-        ).orElseThrow(() -> new NoTurnsInQueueException(queue));
+    public EntityModel<Turn> lastInQueue(@RequestParam String service) {
+        Turn turn = turnRepository.findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
+                serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
+        ).orElseThrow(() -> new NoTurnsInServiceException(service));
 
         return turnRepresentationModelAssembler.toModel(turn);
     }
@@ -90,7 +90,7 @@ public class TurnController {
             turn.setAttentionPoint(newTurn.getAttentionPoint());
             turn.setCancelled(newTurn.getCancelled());
             turn.setClientName(newTurn.getClientName());
-            turn.setQueue(newTurn.getQueue());
+            turn.setService(newTurn.getService());
             turn.setRequestedDateTime(newTurn.getRequestedDateTime());
             return turnRepository.save(turn);
         }).orElseGet(() -> {

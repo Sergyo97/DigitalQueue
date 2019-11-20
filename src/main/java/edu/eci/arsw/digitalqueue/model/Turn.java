@@ -15,7 +15,7 @@ public class Turn {
     private Timestamp requestedDateTime;
     private Timestamp attendedDateTime;
     @ManyToOne
-    private Queue queue;
+    private Service service;
     private Boolean attended;
     private Boolean cancelled;
     @ManyToOne
@@ -53,12 +53,12 @@ public class Turn {
         this.attendedDateTime = attendedDateTime;
     }
 
-    public Queue getQueue() {
-        return queue;
+    public Service getService() {
+        return service;
     }
 
-    public void setQueue(Queue queue) {
-        this.queue = queue;
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public Boolean getAttended() {

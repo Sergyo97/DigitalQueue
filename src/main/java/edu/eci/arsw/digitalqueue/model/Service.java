@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Queue {
+public class Service {
 
     private @Id @GeneratedValue Long id;
     private String name;

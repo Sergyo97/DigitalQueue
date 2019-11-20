@@ -1,6 +1,6 @@
 package edu.eci.arsw.digitalqueue.repository;
 
-import edu.eci.arsw.digitalqueue.model.Queue;
+import edu.eci.arsw.digitalqueue.model.Service;
 import edu.eci.arsw.digitalqueue.model.Turn;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface TurnRepository extends JpaRepository<Turn, String> {
 
-    Optional<Turn> findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
+    Optional<Turn> findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(Service service);
 
-    Optional<Turn> findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeAsc(Queue queue);
+    Optional<Turn> findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeAsc(Service service);
 
-    List<Turn> findByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(Queue queue);
+    List<Turn> findByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(Service service);
 }
