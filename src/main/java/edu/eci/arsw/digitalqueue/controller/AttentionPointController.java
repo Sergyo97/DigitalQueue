@@ -5,6 +5,7 @@ import edu.eci.arsw.digitalqueue.exception.AttentionPointNotFoundException;
 import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
 import edu.eci.arsw.digitalqueue.model.AttentionPoint;
 import edu.eci.arsw.digitalqueue.model.Queue;
+import edu.eci.arsw.digitalqueue.model.Turn;
 import edu.eci.arsw.digitalqueue.repository.AttentionPointRepository;
 import edu.eci.arsw.digitalqueue.repository.QueueRepository;
 
@@ -89,6 +90,17 @@ public class AttentionPointController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref()))
                 .body(entityModel);
     }
+
+    @PutMapping("turns/{id}")
+    private ResponseEntity<EntityModel<AttentionPoint>> addTurn(@PathVariable Long id, @RequestBody Turn turn) throws URISyntaxException {
+        AttentionPoint attentionPoint = attentionPointRepository.findById(id).orElseThrow(() -> new AttentionPointNotFoundException(id));
+        attentionPoint.addTurn(turn);
+        attentionPointRepository.save(attentionPoint);
+        EntityModel<AttentionPoint> entityModel = attentionPointRepresentationModelAssembler.toModel(attentionPoint);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref()))
+        .body(entityModel);
+    }
+
 
     @DeleteMapping("/{id}")
     private ResponseEntity<Object> delete(@PathVariable Long id) {

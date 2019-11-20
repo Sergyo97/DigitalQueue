@@ -8,10 +8,10 @@ var boton = document.getElementById('json_post');
 
 var queueName = getParameterByName('queueName');
 console.log(queueName)
-if(!queueName){
+if (!queueName) {
     queueName = "";
-}else{
-    queueName = "?queueName="+queueName;
+} else {
+    queueName = "?queueName=" + queueName;
 }
 console.log(queueName)
 //console.log(window.location.href);
@@ -38,7 +38,7 @@ axios.get('https://localhost:8080/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-axios.get('https://localhost:8080/attentionPoints'+queueName)
+axios.get('https://localhost:8080/attentionPoints' + queueName)
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
