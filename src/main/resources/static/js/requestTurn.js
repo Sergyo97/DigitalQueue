@@ -1,6 +1,6 @@
-axios.get('https://digital-queue-404.herokuapp.com/services/')
+axios.get('https://localhost:8443/services/')
     .then(response => {
-        var services = response.data._embedded.queueList;
+        var services = response.data._embedded.serviceList;
         services.forEach(service => {
             $('#services').append(`<option>` + service.name + `</option>`);
         });
@@ -8,7 +8,7 @@ axios.get('https://digital-queue-404.herokuapp.com/services/')
     })
 
 function saveTurn(turn) {
-    axios.post("https://digital-queue-404.herokuapp.com/turns", turn)
+    axios.post("https://localhost:8443/turns", turn)
         .then(response => {
             alert('Turn successfully created.')
         });
@@ -18,7 +18,7 @@ function request() {
     var service = JSON.parse(localStorage.getItem('services')).find(service => {
         return service.name == $('#services').val();
     })
-    axios.get('https://digital-queue-404.herokuapp.com/turns/count?service=' + service.name)
+    axios.get('https://localhost:8443/turns/count?service=' + service.name)
         .then(response => {
             var code = service.identifier + (response.data + 1);
             console.log('Code: ' + code);

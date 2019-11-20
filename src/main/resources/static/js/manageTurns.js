@@ -10,7 +10,7 @@ var turn;
 var attentionPointId = getParameterByName('id');
 console.log(attentionPointId)
 
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
+axios.get('https://localhost:8443/attentionPoints/' + attentionPointId)
     .then(response => {
         attp = response.data;
         //console.log(attp)
