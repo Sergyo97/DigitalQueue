@@ -5,10 +5,10 @@ var boton = document.getElementById('json_post');
 
 var queueName = getParameterByName('queueName');
 console.log(queueName)
-if(!queueName){
+if (!queueName) {
     queueName = "";
-}else{
-    queueName = "?queueName="+queueName;
+} else {
+    queueName = "?queueName=" + queueName;
 }
 console.log(queueName)
 //console.log(window.location.href);

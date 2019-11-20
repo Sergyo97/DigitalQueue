@@ -1,12 +1,9 @@
 package edu.eci.arsw.digitalqueue.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,8 +16,6 @@ public class AttentionPoint {
     private Boolean enable;
     @OneToOne
     private User user;
-    @OneToMany(mappedBy = "attentionPoint")
-    private List<Turn> turns;
     @ManyToOne
     private Queue queue;
 
@@ -62,6 +57,18 @@ public class AttentionPoint {
 
     public void setQueue(Queue queue){
         this.queue = queue;
+    }
+
+    public List<Turn> getTurns() {
+        return turns;
+    }
+
+    public void setTurns(List<Turn> turns) {
+        this.turns = turns;
+    }
+
+    public void addTurn(Turn turn){
+        turns.add(turn);
     }
 
 }
