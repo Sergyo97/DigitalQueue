@@ -4,7 +4,6 @@ import edu.eci.arsw.digitalqueue.assembler.UserRepresentationModelAssembler;
 import edu.eci.arsw.digitalqueue.exception.UserNotFoundException;
 import edu.eci.arsw.digitalqueue.model.User;
 import edu.eci.arsw.digitalqueue.repository.UserRepository;
-import javafx.print.PaperSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
