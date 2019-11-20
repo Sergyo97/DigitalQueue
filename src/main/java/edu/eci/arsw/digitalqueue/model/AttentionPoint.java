@@ -59,5 +59,4 @@ public class AttentionPoint {
         this.queue = queue;
     }
 
-
 }
