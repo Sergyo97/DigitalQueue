@@ -1,4 +1,4 @@
-axios.get('https://localhost:8080/queues/')
+axios.get('https://localhost:8443/queues/')
     .then(response => {
         var queues = response.data._embedded.queueList;
         queues.forEach(queue => {
@@ -8,7 +8,7 @@ axios.get('https://localhost:8080/queues/')
     })
 
 function saveTurn(turn) {
-    axios.post("https://localhost:8080/turns", turn)
+    axios.post("https://localhost:8443/turns", turn)
         .then(response => {
             alert('Turn successfully created.')
         });
@@ -18,7 +18,7 @@ function request() {
     var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
         return queue.name == $('#services').val();
     })
-    axios.get('https://localhost:8080/turns/count?queue=' + queue.name)
+    axios.get('https://localhost:8443/turns/count?queue=' + queue.name)
         .then(response => {
             var code = queue.identifier + (response.data + 1);
             console.log('Code: ' + code);

@@ -4,10 +4,12 @@ import edu.eci.arsw.digitalqueue.assembler.UserRepresentationModelAssembler;
 import edu.eci.arsw.digitalqueue.exception.UserNotFoundException;
 import edu.eci.arsw.digitalqueue.model.User;
 import edu.eci.arsw.digitalqueue.repository.UserRepository;
+import javafx.print.PaperSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +29,9 @@ public class UserController {
     @Autowired
     private UserRepresentationModelAssembler userRepresentationModelAssembler;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping
     public CollectionModel<EntityModel<User>> all() {
         List<EntityModel<User>> employees = userRepository.findAll().stream().map(userRepresentationModelAssembler::toModel)
@@ -37,6 +42,7 @@ public class UserController {
 
     @PostMapping
     private ResponseEntity<?> add(@RequestBody User newEmployee) throws URISyntaxException {
+        newEmployee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
         EntityModel<User> entityModel = userRepresentationModelAssembler.toModel(userRepository.save(newEmployee));
 
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);

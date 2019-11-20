@@ -1,24 +1,24 @@
 package edu.eci.arsw.digitalqueue.service;
 
-import edu.eci.arsw.digitalqueue.model.Role;
 import edu.eci.arsw.digitalqueue.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.Collections;
 
 public class UserDetailsImpl implements UserDetails {
 
     private User user;
 
-    public UserDetailsImpl(User user) {
+    UserDetailsImpl(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles();
+
+        return Collections.singletonList(user.getRole());
     }
 
     @Override
