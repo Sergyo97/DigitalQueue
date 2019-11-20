@@ -3,8 +3,6 @@ package edu.eci.arsw.digitalqueue.model.builder;
 import edu.eci.arsw.digitalqueue.model.Role;
 import edu.eci.arsw.digitalqueue.model.User;
 
-import java.util.Set;
-
 public final class UserBuilder {
     private Long id;
     private String name;
