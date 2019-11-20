@@ -1,4 +1,5 @@
 
+
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
@@ -54,7 +55,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
                     </td>
 
                 </tr>
-                
+
             `)
         });
     })

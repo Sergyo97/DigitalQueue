@@ -27,7 +27,16 @@ queue = attentionPoint.queue;
 console.log(queue);
 
 botonNextTurn.addEventListener('click', function(){
-    console.log("next Turn");
+    console.log("next turn")
+    axios.get('https://digital-queue-404.herokuapp.com/turns/next?queue=' + queue.name)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(e => {
+        // Capturamos los errores
+    }
+    )
+
 });
 
 botonTurnCompleted.addEventListener('click', function(){

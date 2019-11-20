@@ -1,3 +1,4 @@
+
 axios.get('https://digital-queue-404.herokuapp.com/queues/')
     .then(response => {
         var queues = response.data._embedded.queueList;

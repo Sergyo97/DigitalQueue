@@ -68,18 +68,12 @@ public class TurnController {
         Turn turn = turnRepository.findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeAsc(
                 queueRepository.findByName(queue).orElseThrow(() -> new QueueNotFoundException(queue))
         ).orElseThrow(() -> new NoTurnsInQueueException(queue));
-
+        System.out.println(turn.getCode() + " " + turn.getAttended());
+        turn.setAttended(true);
+        turnRepository.save(turn);
         return turnRepresentationModelAssembler.toModel(turn);
     }
 
-    @GetMapping("/last")
-    public EntityModel<Turn> lastInQueue(@RequestParam String queue) {
-        Turn turn = turnRepository.findFirstByQueueAndAttendedFalseOrderByRequestedDateTimeDesc(
-                queueRepository.findByName(queue).orElseThrow(() -> new QueueNotFoundException(queue))
-        ).orElseThrow(() -> new NoTurnsInQueueException(queue));
-
-        return turnRepresentationModelAssembler.toModel(turn);
-    }
 
     @PutMapping("/{code}")
     private ResponseEntity<EntityModel<Turn>> update(@PathVariable String code, @RequestBody Turn newTurn)
@@ -103,7 +97,18 @@ public class TurnController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
-    @PutMapping("/{code}/cancel")
+    @PutMapping("/complete/{code}")
+    private ResponseEntity<EntityModel<Turn>> complete(@PathVariable String code) throws URISyntaxException {
+        Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
+
+        EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
+
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
+
+    }
+
+
+    @PutMapping("/cancel/{code}")
     private ResponseEntity<EntityModel<Turn>> cancel(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
         if (updatedTurn.getCancelled()) {
