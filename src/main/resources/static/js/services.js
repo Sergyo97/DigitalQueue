@@ -4,7 +4,7 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', function () {
     loading.style.display = 'block';
-    axios.post('https://digital-queue-404.herokuapp.com/queues', {
+    axios.post('https://digital-queue-404.herokuapp.com/services', {
 
         name: $('#recipient-name').val(),
         identifier: $('#recipient-letter').val(),
@@ -26,16 +26,9 @@ boton.addEventListener('click', function () {
 });
 
 
-axios.get('https://digital-queue-404.herokuapp.com/queues')
+axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
-
-        mydata = response.data;
-
-        mydata = mydata._embedded.queueList;
-        // $('#table1').bootstrapTable({
-        //     data: mydata
-        // });
-        console.log(mydata);
+        mydata = response.data._embedded.serviceList;
         mydata.forEach(service => {
             $('#servicesTable').append(`
                 <tr>
@@ -45,12 +38,12 @@ axios.get('https://digital-queue-404.herokuapp.com/queues')
                         <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
                     </td>
                     <td>
-                        <button type="button" onclick="window.location.href='/attentionPoints.html?queueName=` + service.name + ` '" class="btn btn-info">
+                        <button type="button" onclick="window.location.href='/attentionPoints.html?serviceName=` + service.name + ` '" class="btn btn-info">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
                     <td>
-                        <button type="button" onclick="deleteQueue(`+ service.id +`)" class="btn btn-danger">
+                        <button type="button" onclick="deleteService(`+ service.id +`)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -64,8 +57,8 @@ axios.get('https://digital-queue-404.herokuapp.com/queues')
 
 
 
-function deleteQueue(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/queues/"+ id ).then(function (response) {
+function deleteService(id) {
+    axios.delete("https://digital-queue-404.herokuapp.com/services/"+ id ).then(function (response) {
         window.location.reload
     })
 

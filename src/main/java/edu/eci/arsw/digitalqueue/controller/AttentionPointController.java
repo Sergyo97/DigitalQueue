@@ -2,17 +2,24 @@ package edu.eci.arsw.digitalqueue.controller;
 
 import edu.eci.arsw.digitalqueue.assembler.AttentionPointRepresentationModelAssembler;
 import edu.eci.arsw.digitalqueue.exception.AttentionPointNotFoundException;
-import edu.eci.arsw.digitalqueue.exception.QueueNotFoundException;
+import edu.eci.arsw.digitalqueue.exception.ServiceNotFoundException;
 import edu.eci.arsw.digitalqueue.model.AttentionPoint;
-import edu.eci.arsw.digitalqueue.model.Queue;
+import edu.eci.arsw.digitalqueue.model.Service;
 import edu.eci.arsw.digitalqueue.repository.AttentionPointRepository;
-import edu.eci.arsw.digitalqueue.repository.QueueRepository;
-
+import edu.eci.arsw.digitalqueue.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -32,16 +39,16 @@ public class AttentionPointController {
     private AttentionPointRepository attentionPointRepository;
 
     @Autowired
-    private QueueRepository queueRepository;
+    private ServiceRepository serviceRepository;
 
     @Autowired
     private AttentionPointRepresentationModelAssembler attentionPointRepresentationModelAssembler;
 
     @GetMapping
-    public CollectionModel<EntityModel<AttentionPoint>> all(@RequestParam(required = false) String queueName) {
-        if (queueName != null) {
-            Queue queue = queueRepository.findByName(queueName).orElseThrow(() -> new QueueNotFoundException(queueName));
-            List<EntityModel<AttentionPoint>> attentionPoints = attentionPointRepository.findByQueue(queue).stream()
+    public CollectionModel<EntityModel<AttentionPoint>> all(@RequestParam(required = false) String serviceName) {
+        if (serviceName != null) {
+            Service service = serviceRepository.findByName(serviceName).orElseThrow(() -> new ServiceNotFoundException(serviceName));
+            List<EntityModel<AttentionPoint>> attentionPoints = attentionPointRepository.findByService(service).stream()
                     .map(attentionPointRepresentationModelAssembler::toModel).collect(Collectors.toList());
 
             return new CollectionModel<>(attentionPoints, linkTo(AttentionPointController.class).withSelfRel());

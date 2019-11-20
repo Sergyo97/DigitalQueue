@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import edu.eci.arsw.digitalqueue.exception.NoTurnsInQueueException;
+import edu.eci.arsw.digitalqueue.exception.NoTurnsInServiceException;
 
 /**
  * TurnNotFoundAdvice
@@ -15,9 +15,9 @@ import edu.eci.arsw.digitalqueue.exception.NoTurnsInQueueException;
 public class TurnAlreadyCancelledAdvice {
 
     @ResponseBody
-    @ExceptionHandler(NoTurnsInQueueException.class)
+    @ExceptionHandler(NoTurnsInServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String noTurnsInQueueHandler(NoTurnsInQueueException exception) {
+    String noTurnsInQueueHandler(NoTurnsInServiceException exception) {
         return exception.getMessage();
     }
 
