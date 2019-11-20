@@ -35,7 +35,11 @@ axios.get('http://digital-queue-404.herokuapp.com/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
+<<<<<<< HEAD
 axios.get('http://digital-queue-404.herokuapp.com/attentionPoints')
+=======
+axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
+>>>>>>> master
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
