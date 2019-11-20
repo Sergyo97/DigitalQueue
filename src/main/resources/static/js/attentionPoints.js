@@ -35,11 +35,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-<<<<<<< HEAD
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
-=======
 axios.get('https://localhost:8080/attentionPoints' + queueName)
->>>>>>> manageTurns
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
