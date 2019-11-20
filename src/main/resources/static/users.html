@@ -36,7 +36,7 @@
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                <a class="nav-link" href="/logout">Sign out</a>
             </li>
         </ul>
     </nav>
@@ -103,16 +103,16 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Name:</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <label for="name" class="col-form-label">Name:</label>
+                                        <input type="text" class="form-control" id="name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="recipient-email" class="col-form-label">Email:</label>
-                                        <input class="form-control" id="recipient-email"></input>
+                                        <label for="email" class="col-form-label">Email:</label>
+                                        <input class="form-control" id="email"></input>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPassword6">Password:</label>
-                                        <input type="password" id="inputPassword6" class="form-control"
+                                        <label for="password">Password:</label>
+                                        <input type="password" id="password" class="form-control"
                                             aria-describedby="passwordHelpInline">
                                         <small id="passwordHelpInline" class="text-muted">
                                             Must be 8-20 characters long.
@@ -120,12 +120,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Rol:</label>
-                                        <select class="custom-select" id="inlineFormCustomSelect">
+                                        <label class="mr-sm-2" for="roleSelect">Rol:</label>
+                                        <select class="custom-select" id="roleSelect">
                                             <option selected>Choose...</option>
-                                            <option value="1">Service Manager</option>
-                                            <option value="2">Admin</option>
-                                            <option value="3">Agent</option>
+                                            <option value="SERVICE_MANAGER">Service Manager</option>
+                                            <option value="AGENT">Agent</option>
                                         </select>
                                     </div>
 
