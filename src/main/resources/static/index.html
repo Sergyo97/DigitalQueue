@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/grid.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
+    <script src="https://unpkg.com/feather-icons"></script>
     <title>Digital Queue</title>
 </head>
 
@@ -29,50 +30,41 @@
 
     </header>
 
-    <section class="section-features">
+    <section class="section-features" id="features">
 
         <div class="row">
-            <h2>Get food fast &mdash; not fast food.</h2>
+            <h2>--- &mdash; ---.</h2>
             <p class="long-copy">
-                Hello, we’re Omnifood, your new premium food delivery service. We know you’re always busy. No time for
-                cooking. So let us take care of that, we’re really good at it, we promise!
+                Hi, we are Digital Queue, your new provider of digital queuing systems. We know it's annoying to have
+                uncontrollable lines in your business. So let us take care of that, we're really good at it, we promise!
             </p>
         </div>
 
         <div class="row">
-            <div class="col span-1-of-4 box">
-                <i class="ion-ios-infinite-outline icon-big"></i>
-                <h3>Up to 365 days/year</h3>
+            <div class="col span-1-of-3 box">
+                <i data-feather="sliders" style= "color: #007bff"></i>
+                <h3>Customizable</h3>
                 <p>
-                    Never cook again! We really mean that. Our subscription plans include up to 365 days/year coverage.
-                    You can also choose to order more flexibly if that's your style.
+                    Don't worry about what style of business you are! Digital Queue can make it work the personalized way you need,
+                    no matter if you have a single service or many.
                 </p>
             </div>
 
-            <div class="col span-1-of-4 box">
-                <i class="ion-ios-stopwatch-outline icon-big"></i>
-                <h3>Ready in 20 minutes</h3>
+            <div class="col span-1-of-3 box">
+                <i data-feather="shield" style= "color: #007bff"></i>
+                <h3>Secure</h3>
                 <p>
-                    You're only twenty minutes away from your delicious and super healthy meals delivered right to your
-                    home. We work with the best chefs in each town to ensure that you're 100% happy.
+                    With Digital Queue all your services are protected from external agents who want to modify them.
+                    Forget about this and focus on growing your business.
                 </p>
             </div>
 
-            <div class="col span-1-of-4 box">
-                <i class="ion-ios-nutrition-outline icon-big"></i>
-                <h3>100% organic</h3>
+            <div class="col span-1-of-3 box">
+                <i data-feather="airplay" style= "color: #007bff"></i>
+                <h3>Plug & Play</h3>
                 <p>
-                    All our vegetables are fresh, organic and local. Animals are raised without added hormones or
-                    antibiotics. Good for your health, the environment, and it also tastes better!
-                </p>
-            </div>
-
-            <div class="col span-1-of-4 box">
-                <i class="ion-ios-cart-outline icon-big"></i>
-                <h3>Order anything</h3>
-                <p>
-                    We don't limit your creativity, which means you can order whatever you feel like. You can also
-                    choose from our menu containing over 100 delicious meals. It's up to you!
+                    Don't worry about annoying installations. Just have access to an internet network and 
+                    Digital Queue will take care of the rest. Make your life easy.
                 </p>
             </div>
         </div>
@@ -85,7 +77,7 @@
         </div>
         <div class="row">
             <div class="col span-1-of-2 steps-box">
-                <img src="resources/img/app-iPhone.png" alt="Omnifood app on iPhone" class="app-screen js--wp-2">
+                <img src="img/appRequestTurns.png" alt="Omnifood app on iPhone" class="app-screen js--wp-2">
             </div>
             <div class="col span-1-of-2 steps-box">
                 <div class="works-step clearfix">
@@ -101,7 +93,7 @@
                     <p>Enjoy your meal after less than 20 minutes. See you the next time!</p>
                 </div>
 
-                <a href="#" class="btn-app"><img src="resources/img/download-app.svg" alt="App Store Button"></a>
+                <a href="https://digital-queue-404.herokuapp.com/requestTurn.html" class="btn-app"><img src="img/HerokuButton.png" alt="App Store Button"></a>
             </div>
         </div>
     </section>
@@ -133,8 +125,9 @@
                 This webpage is for you! So go and do whatever you want with it and have fun.
             </p>
             <p>
-                Build with <ion-icon name="heart" style="color: #ea0000; padding: 0 3px;"></ion-icon>in the beautiful city
-                
+                Build with <ion-icon name="heart" style="color: #ea0000; padding: 0 3px;"></ion-icon>in the beautiful
+                city
+
                 of Lisbon, Portugal, March 2015.
             </p>
         </div>
@@ -146,6 +139,9 @@
     <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script>
+        feather.replace()
+    </script>
 
 </body>
 

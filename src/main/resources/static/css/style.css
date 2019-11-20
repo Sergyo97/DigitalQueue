@@ -115,7 +115,7 @@ h2:after {
 
 .icon-small {
     display: inline-block;
-    width: 30px;
+    width: 10px;
     text-align: center;
     color: #007bff;
     font-size: 120%;
@@ -438,33 +438,6 @@ footer p {
     color: #888;
     text-align: center;
     margin-top: 20px;
-}
-
-
-
-
-/* ----------------------------------------------- */
-/* Animations */
-/* ----------------------------------------------- */
-
-.js--wp-1,
-.js--wp-2,
-.js--wp-3
-{
-    opacity: 0;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-}
-
-.js--wp-4 {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-}
-
-.js--wp-1.animated,
-.js--wp-2.animated,
-.js--wp-3.animated {
-    opacity: 1;
 }
 
 
