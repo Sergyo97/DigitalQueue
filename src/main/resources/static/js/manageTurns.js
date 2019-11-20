@@ -5,12 +5,12 @@ var botonCancelTurn = document.getElementById('cancelTurn');
 
 
 var attentionPoint;
-var queue;
+var service;
 var turn;
 var attentionPointId = getParameterByName('id');
 console.log(attentionPointId)
 
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
+axios.get('https://localhost:8443/attentionPoints/' + attentionPointId)
     .then(response => {
         attp = response.data;
         //console.log(attp)
@@ -23,8 +23,8 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attention
 
 attentionPoint = JSON.parse(localStorage.getItem('attentionPoint'));
 console.log(attentionPoint);
-queue = attentionPoint.queue;
-console.log(queue);
+service = attentionPoint.service;
+console.log(service);
 
 botonNextTurn.addEventListener('click', function(){
     console.log("next Turn");

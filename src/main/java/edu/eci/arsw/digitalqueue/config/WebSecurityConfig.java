@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index.html").permitAll()
                 .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/users**").hasAuthority("ADMIN")
-                .antMatchers("/queues**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/attentionPoints**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/manageTurns.html").hasAuthority("AGENT");
     }

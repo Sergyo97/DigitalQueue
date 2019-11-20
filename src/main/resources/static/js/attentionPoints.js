@@ -14,18 +14,18 @@ console.log(queueName)
 //console.log(window.location.href);
 
 
-axios.get('https://digital-queue-404.herokuapp.com/queues/')
+axios.get('https://localhost:8443/services')
     .then(response => {
-        var queues = response.data._embedded.queueList;
+        var services = response.data._embedded.serviceList;
 
-        queues.forEach(queue => {
-            $('#services').append(`<option>` + queue.name + `</option>`);
+        services.forEach(service => {
+            $('#services').append(`<option>` + service.name + `</option>`);
         });
-        localStorage.setItem('queues', JSON.stringify(queues));
+        localStorage.setItem('services', JSON.stringify(services));
     });
 
 
-axios.get('https://digital-queue-404.herokuapp.com/users/')
+axios.get('https://localhost:8443/users/')
     .then(response => {
         var users = response.data._embedded.userList;
 
@@ -35,7 +35,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
+axios.get('https://localhost:8443/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
@@ -44,7 +44,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
                 <tr>
                     <td>` + attentionPoint.code + `</td>
                     <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
-                    <td>` + attentionPoint.queue.name + `</td>
+                    <td>` + attentionPoint.service.name + `</td>
                     <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
@@ -69,17 +69,17 @@ boton.addEventListener('click', function () {
     var agent = JSON.parse(localStorage.getItem('users')).find(user => {
         return user.email == $('#users').val()
     });
-    var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
-        return queue.name == $('#services').val()
+    var service = JSON.parse(localStorage.getItem('services')).find(service => {
+        return service.name == $('#services').val()
     })
     var attentionPoint = {
         code: $('#recipient-code').val(),
         user: agent,
-        queue: queue,
+        service: service,
         enable: true
     }
     console.log(attentionPoint);
-    axios.post('https://digital-queue-404.herokuapp.com/attentionPoints', attentionPoint)
+    axios.post('https://localhost:8443/attentionPoints', attentionPoint)
         .then(res => {
             if (res.status == 201) {
                 mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
@@ -92,7 +92,7 @@ boton.addEventListener('click', function () {
 
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id)
+    axios.delete("https://localhost:8443/attentionPoints/" + id)
         .then(function (response) {
             window.location.reload
         })

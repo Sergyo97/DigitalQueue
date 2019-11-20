@@ -1,33 +1,33 @@
-axios.get('https://digital-queue-404.herokuapp.com/queues/')
+axios.get('https://localhost:8443/services/')
     .then(response => {
-        var queues = response.data._embedded.queueList;
-        queues.forEach(queue => {
-            $('#services').append(`<option>` + queue.name + `</option>`);
+        var services = response.data._embedded.serviceList;
+        services.forEach(service => {
+            $('#services').append(`<option>` + service.name + `</option>`);
         });
-        localStorage.setItem('queues', JSON.stringify(queues));
+        localStorage.setItem('services', JSON.stringify(services));
     })
 
 function saveTurn(turn) {
-    axios.post("https://digital-queue-404.herokuapp.com/turns", turn)
+    axios.post("https://localhost:8443/turns", turn)
         .then(response => {
             alert('Turn successfully created.')
         });
 }
 
 function request() {
-    var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
-        return queue.name == $('#services').val();
+    var service = JSON.parse(localStorage.getItem('services')).find(service => {
+        return service.name == $('#services').val();
     })
-    axios.get('https://digital-queue-404.herokuapp.com/turns/count?queue=' + queue.name)
+    axios.get('https://localhost:8443/turns/count?service=' + service.name)
         .then(response => {
-            var code = queue.identifier + (response.data + 1);
+            var code = service.identifier + (response.data + 1);
             console.log('Code: ' + code);
             var turn = {
                 code: code,
                 clientName: $('#name').val(),
                 requestedDateTime: new Date(),
                 attendedDateTime: null,
-                queue: queue,
+                service: service,
                 attended: false,
                 cancelled: false,
                 attentionPoint: null
