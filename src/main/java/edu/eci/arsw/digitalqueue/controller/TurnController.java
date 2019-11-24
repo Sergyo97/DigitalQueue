@@ -8,6 +8,8 @@ import edu.eci.arsw.digitalqueue.exception.TurnNotFoundException;
 import edu.eci.arsw.digitalqueue.model.Turn;
 import edu.eci.arsw.digitalqueue.repository.ServiceRepository;
 import edu.eci.arsw.digitalqueue.repository.TurnRepository;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -23,6 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(value = "turns", produces = "application/json")
+@SuppressWarnings("unused")
 public class TurnController {
 
     @Autowired
@@ -33,6 +36,12 @@ public class TurnController {
 
     @Autowired
     private TurnRepresentationModelAssembler turnRepresentationModelAssembler;
+
+    @Autowired
+    private DirectExchange turnsDirect;
+
+    @Autowired
+    private RabbitTemplate template;
 
     @GetMapping
     public CollectionModel<EntityModel<Turn>> all() {
@@ -45,6 +54,9 @@ public class TurnController {
     @PostMapping
     private ResponseEntity<?> add(@RequestBody Turn newTurn) throws URISyntaxException {
         EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(turnRepository.save(newTurn));
+
+        String message = "requested turn " + newTurn.getCode();
+        template.convertAndSend(turnsDirect.getName(), newTurn.getService().getIdentifier(), message);
 
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }

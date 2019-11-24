@@ -1,5 +1,7 @@
 package edu.eci.arsw.digitalqueue.model;
 
+import org.springframework.amqp.core.Queue;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ public class Service {
     private String name;
     private String identifier;
     private Boolean status;
+    private Queue queue;
 
     public Long getId() {
         return id;
@@ -44,4 +47,11 @@ public class Service {
         this.status = status;
     }
 
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
 }
