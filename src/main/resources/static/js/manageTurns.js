@@ -82,7 +82,7 @@ function getParameterByName(name, url) {
 
 async function getTurn(){
     console.log(service.name);
-    let json = await axios.get('https://digital-queue-404.herokuapp.com/turns/next?queue=' + service.name);
+    let json = await axios.get('https://digital-queue-404.herokuapp.com/turns/next?service=' + service.name);
     return json;
 
 }
