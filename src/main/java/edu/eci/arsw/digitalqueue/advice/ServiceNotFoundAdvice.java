@@ -6,18 +6,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import edu.eci.arsw.digitalqueue.exception.NoTurnsInQueueException;
+import edu.eci.arsw.digitalqueue.exception.ServiceNotFoundException;
 
 /**
- * TurnNotFoundAdvice
+ * QueueNotFoundAdvice
  */
 @ControllerAdvice
-public class NoTurnsInQueueAdvice {
+public class ServiceNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(NoTurnsInQueueException.class)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    String noTurnsInQueueHandler(NoTurnsInQueueException exception) {
+    @ExceptionHandler(ServiceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+
+    String queueNotFoundHandler(ServiceNotFoundException exception){
         return exception.getMessage();
     }
 

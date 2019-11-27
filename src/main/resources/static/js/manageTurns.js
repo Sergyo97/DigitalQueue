@@ -5,7 +5,7 @@ var botonCancelTurn = document.getElementById('cancelTurn');
 
 
 var attentionPoint;
-var queue;
+var service;
 var turn;
 localStorage.setItem('turn',"")
 var attentionPointId = getParameterByName('id');
@@ -24,8 +24,8 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attention
 
 attentionPoint = JSON.parse(localStorage.getItem('attentionPoint'));
 console.log(attentionPoint);
-queue = attentionPoint.queue;
-console.log(queue);
+service = attentionPoint.service;
+console.log(service);
 
 botonNextTurn.addEventListener('click', function(){
     console.log("next turn")
@@ -37,8 +37,8 @@ botonNextTurn.addEventListener('click', function(){
                 confirm("Siguiente turno "+ res.code)
             }else{
                 confirm("No hay más turnos")
-            }            
-        })        
+            }
+        })
     }else{
         confirm("primero cancela o completa tu turno actual");
     }
@@ -52,8 +52,8 @@ botonTurnCompleted.addEventListener('click', function(){
 botonCancelTurn.addEventListener('click', function(){
     console.log("cancel turn");
 
-    
-    
+
+
     if(localStorage.getItem('turn') != ""){
         var turnToCancel = JSON.parse( localStorage.getItem("turn"));
         console.log(turnToCancel.code);
@@ -84,5 +84,5 @@ async function getTurn(){
     console.log(queue.name);
     let json = await axios.get('https://digital-queue-404.herokuapp.com/turns/next?queue=' + queue.name);
     return json;
-    
+
 }

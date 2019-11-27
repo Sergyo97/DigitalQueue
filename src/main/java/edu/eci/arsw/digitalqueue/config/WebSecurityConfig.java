@@ -28,17 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .logout()
                 .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .requiresChannel()
                 .anyRequest()
                 .requiresSecure()
                 .and()
                 .csrf().disable()
                 .cors().disable()
-                .formLogin().permitAll();
+                .formLogin()
+                .permitAll()
+                .defaultSuccessUrl("/dashboard.html");
+
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/index.html").permitAll()
+                .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers("/users**").hasAuthority("ADMIN")
+                .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers("/attentionPoints**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers("/manageTurns.html").hasAuthority("AGENT");
     }
 
     @Bean

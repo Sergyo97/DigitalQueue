@@ -17,7 +17,7 @@ public class AttentionPoint {
     @OneToOne
     private User user;
     @ManyToOne
-    private Queue queue;
+    private Service service;
 
     public Long getId() {
         return id;
@@ -51,12 +51,12 @@ public class AttentionPoint {
         this.user = user;
     }
 
-    public Queue getQueue(){
-        return queue;
+    public Service getService(){
+        return service;
     }
 
-    public void setQueue(Queue queue){
-        this.queue = queue;
+    public void setService(Service service){
+        this.service = service;
     }
 
 }

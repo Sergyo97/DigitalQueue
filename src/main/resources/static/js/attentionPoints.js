@@ -1,5 +1,3 @@
-
-
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
@@ -12,17 +10,15 @@ if (!queueName) {
     queueName = "?queueName=" + queueName;
 }
 console.log(queueName)
-//console.log(window.location.href);
 
-
-axios.get('https://digital-queue-404.herokuapp.com/queues/')
+axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
-        var queues = response.data._embedded.queueList;
+        var services = response.data._embedded.serviceList;
 
-        queues.forEach(queue => {
-            $('#services').append(`<option>` + queue.name + `</option>`);
+        services.forEach(service => {
+            $('#services').append(`<option>` + service.name + `</option>`);
         });
-        localStorage.setItem('queues', JSON.stringify(queues));
+        localStorage.setItem('services', JSON.stringify(services));
     });
 
 
@@ -46,7 +42,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
                 <tr>
                     <td>` + attentionPoint.code + `</td>
                     <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
-                    <td>` + attentionPoint.queue.name + `</td>
+                    <td>` + attentionPoint.service.name + `</td>
                     <td>` + attentionPoint.user.name + `</td>
                     <td>` + "1" + `</td>
                     <td>
@@ -71,13 +67,13 @@ boton.addEventListener('click', function () {
     var agent = JSON.parse(localStorage.getItem('users')).find(user => {
         return user.email == $('#users').val()
     });
-    var queue = JSON.parse(localStorage.getItem('queues')).find(queue => {
-        return queue.name == $('#services').val()
+    var service = JSON.parse(localStorage.getItem('services')).find(service => {
+        return service.name == $('#services').val()
     })
     var attentionPoint = {
         code: $('#recipient-code').val(),
         user: agent,
-        queue: queue,
+        service: service,
         enable: true
     }
     console.log(attentionPoint);
@@ -90,6 +86,7 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
+    setTimeout(() => {window.location.reload();}, 1000);
 });
 
 
