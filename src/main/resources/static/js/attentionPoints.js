@@ -11,7 +11,7 @@ if (!queueName) {
 }
 console.log(queueName)
 
-axios.get('https://localhost:8443/services')
+axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
         var services = response.data._embedded.serviceList;
 
@@ -22,7 +22,7 @@ axios.get('https://localhost:8443/services')
     });
 
 
-axios.get('https://localhost:8443/users/')
+axios.get('https://digital-queue-404.herokuapp.com/users/')
     .then(response => {
         var users = response.data._embedded.userList;
 
@@ -32,10 +32,11 @@ axios.get('https://localhost:8443/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-axios.get('https://localhost:8443/attentionPoints')
+axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
+        console.log(mydata)
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
                 <tr>
@@ -76,7 +77,7 @@ boton.addEventListener('click', function () {
         enable: true
     }
     console.log(attentionPoint);
-    axios.post('https://localhost:8443/attentionPoints', attentionPoint)
+    axios.post('https://digital-queue-404.herokuapp.com/attentionPoints', attentionPoint)
         .then(res => {
             if (res.status == 201) {
                 mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
@@ -90,7 +91,7 @@ boton.addEventListener('click', function () {
 
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://localhost:8443/attentionPoints/" + id)
+    axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id)
         .then(function (response) {
             window.location.reload
         })

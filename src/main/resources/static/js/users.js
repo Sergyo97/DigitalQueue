@@ -4,7 +4,7 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', () => {
     loading.style.display = 'block';
-    axios.post('https://localhost:8443/users', {
+    axios.post('https://digital-queue-404.herokuapp.com/users', {
         name: $('#name').val(),
         email: $('#email').val(),
         password: $('#password').val(),
@@ -24,7 +24,7 @@ boton.addEventListener('click', () => {
     setTimeout(() => {window.location.reload();}, 500);
 });
 
-axios.get('https://localhost:8443/users')
+axios.get('https://digital-queue-404.herokuapp.com/users')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.userList;
