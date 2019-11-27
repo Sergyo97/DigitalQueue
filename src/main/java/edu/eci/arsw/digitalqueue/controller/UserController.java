@@ -1,23 +1,30 @@
 package edu.eci.arsw.digitalqueue.controller;
 
-import edu.eci.arsw.digitalqueue.assembler.UserRepresentationModelAssembler;
-import edu.eci.arsw.digitalqueue.exception.UserNotFoundException;
-import edu.eci.arsw.digitalqueue.model.User;
-import edu.eci.arsw.digitalqueue.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.eci.arsw.digitalqueue.assembler.UserRepresentationModelAssembler;
+import edu.eci.arsw.digitalqueue.exception.UserNotFoundException;
+import edu.eci.arsw.digitalqueue.model.User;
+import edu.eci.arsw.digitalqueue.repository.UserRepository;
 
 @RestController
 @RequestMapping(value = "users", produces = "application/json")

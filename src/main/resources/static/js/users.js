@@ -21,7 +21,7 @@ boton.addEventListener('click', () => {
         .then(function () {
             loading.style.display = 'none';
         });
-    setTimeout(() => {window.location.reload();}, 500);
+    setTimeout(() => { window.location.reload(); }, 500);
 });
 
 axios.get('https://digital-queue-404.herokuapp.com/users')
@@ -36,7 +36,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users')
                     <td>` + employee.email + `</td>
                     <td>` + employee.role + `</td>
                     <td>
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" onclick="deleteUsers(`+ employee.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -48,3 +48,12 @@ axios.get('https://digital-queue-404.herokuapp.com/users')
     .catch(e => {
         // Capturamos los errores
     })
+
+
+function deleteUsers(id) {
+    axios.delete("https://digital-queue-404.herokuapp.com/users/" + id)
+        .then(function (response) {
+            window.location.reload
+        })
+
+}
