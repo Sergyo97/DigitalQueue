@@ -17,7 +17,7 @@ The purpose of this project is to implement a digital turn system that is ready 
 
 The final aggregate value is based in the reports feature: a business can get immediate feedback in terms of performance, customer satisfaction and possible bottlenecks or problematic areas.
 
-![Component diagram](src/main/resources/static/Component%20Diagram.png)
+![Component diagram](resources/diagrams/Component%20Diagram.png)
 ![Class diagram](resources/diagrams/Class%20Diagram/Queue%20Class%20Diagram.png)
 ![Entity-Relation diagram](resources/diagrams/Entity-Relation%20Diagram.png)
 

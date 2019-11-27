@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,18 +81,14 @@ public class TurnController {
         Turn turn = turnRepository.findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeAsc(
                 serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
         ).orElseThrow(() -> new NoTurnsInServiceException(service));
+        System.out.println(turn.getCode() + " " + turn.getAttended());
+        turn.setAttended(true);
+        turn.setAttendedDateTime(new Timestamp(System.currentTimeMillis()));
+        turnRepository.save(turn);
 
         return turnRepresentationModelAssembler.toModel(turn);
     }
 
-    @GetMapping("/last")
-    public EntityModel<Turn> lastInQueue(@RequestParam String service) {
-        Turn turn = turnRepository.findFirstByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
-                serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
-        ).orElseThrow(() -> new NoTurnsInServiceException(service));
-
-        return turnRepresentationModelAssembler.toModel(turn);
-    }
 
     @PutMapping("/{code}")
     private ResponseEntity<EntityModel<Turn>> update(@PathVariable String code, @RequestBody Turn newTurn)
@@ -115,13 +112,24 @@ public class TurnController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
-    @PutMapping("/{code}/cancel")
+    @DeleteMapping("/complete/{code}")
+    private ResponseEntity<EntityModel<Turn>> complete(@PathVariable String code) throws URISyntaxException {
+        Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
+        EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
+        return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
+
+    }
+
+
+    @DeleteMapping("/cancel/{code}")
     private ResponseEntity<EntityModel<Turn>> cancel(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
+        System.out.println(code);
         if (updatedTurn.getCancelled()) {
             throw new TurnAlreadyCancelledException(code);
         }
         updatedTurn.setCancelled(true);
+        turnRepository.save(updatedTurn);
 
         EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
 

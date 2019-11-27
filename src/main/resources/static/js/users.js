@@ -4,7 +4,6 @@ var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 boton.addEventListener('click', () => {
     loading.style.display = 'block';
-    //https://digital-queue-404.herokuapp.com/users
     axios.post('https://digital-queue-404.herokuapp.com/users', {
         name: $('#name').val(),
         email: $('#email').val(),
@@ -22,16 +21,13 @@ boton.addEventListener('click', () => {
         .then(function () {
             loading.style.display = 'none';
         });
+    setTimeout(() => { window.location.reload(); }, 500);
 });
 
-//https://digital-queue-404.herokuapp.com/users
 axios.get('https://digital-queue-404.herokuapp.com/users')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.userList;
-        // $('#table1').bootstrapTable({
-        //     data: mydata
-        // });
         console.log(mydata);
         mydata.forEach(employee => {
             $('#employeeTable').append(`
@@ -40,7 +36,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users')
                     <td>` + employee.email + `</td>
                     <td>` + employee.role + `</td>
                     <td>
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" onclick="deleteUsers(`+ employee.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -52,3 +48,12 @@ axios.get('https://digital-queue-404.herokuapp.com/users')
     .catch(e => {
         // Capturamos los errores
     })
+
+
+function deleteUsers(id) {
+    axios.delete("https://digital-queue-404.herokuapp.com/users/" + id)
+        .then(function (response) {
+            window.location.reload
+        })
+
+}

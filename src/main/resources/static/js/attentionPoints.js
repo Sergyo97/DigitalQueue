@@ -1,4 +1,3 @@
-
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
@@ -11,8 +10,6 @@ if (!queueName) {
     queueName = "?queueName=" + queueName;
 }
 console.log(queueName)
-//console.log(window.location.href);
-
 
 axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
@@ -39,6 +36,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
+        console.log(mydata)
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
                 <tr>
@@ -88,6 +86,7 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
+    setTimeout(() => {window.location.reload();}, 1000);
 });
 
 

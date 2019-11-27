@@ -23,6 +23,7 @@ boton.addEventListener('click', function () {
         .then(function () {
             loading.style.display = 'none';
         });
+    setTimeout(() => { window.location.reload(); }, 500);
 });
 
 
@@ -39,11 +40,11 @@ axios.get('https://digital-queue-404.herokuapp.com/services')
                     </td>
                     <td>
                         <button type="button" onclick="window.location.href='/attentionPoints.html?serviceName=` + service.name + ` '" class="btn btn-info">
-                            <i class="far fa-trash-alt"></i>
+                            <i class="far fa-edit"></i>
                         </button>
                     </td>
                     <td>
-                        <button type="button" onclick="deleteService(`+ service.id +`)" class="btn btn-danger">
+                        <button type="button" onclick="deleteService(`+ service.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
                         </button>
                     </td>
@@ -58,7 +59,7 @@ axios.get('https://digital-queue-404.herokuapp.com/services')
 
 
 function deleteService(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/services/"+ id ).then(function (response) {
+    axios.delete("https://digital-queue-404.herokuapp.com/services/" + id).then(function (response) {
         window.location.reload
     })
 
