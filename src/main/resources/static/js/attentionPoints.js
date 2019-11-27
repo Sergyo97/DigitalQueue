@@ -1,4 +1,3 @@
-
 var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
@@ -11,10 +10,8 @@ if (!queueName) {
     queueName = "?queueName=" + queueName;
 }
 console.log(queueName)
-//console.log(window.location.href);
 
-
-axios.get('https://digital-queue-404.herokuapp.com/services')
+axios.get('https://localhost:8443/services')
     .then(response => {
         var services = response.data._embedded.serviceList;
 
@@ -25,7 +22,7 @@ axios.get('https://digital-queue-404.herokuapp.com/services')
     });
 
 
-axios.get('https://digital-queue-404.herokuapp.com/users/')
+axios.get('https://localhost:8443/users/')
     .then(response => {
         var users = response.data._embedded.userList;
 
@@ -35,7 +32,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users/')
         localStorage.setItem('users', JSON.stringify(users));
     });
 
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
+axios.get('https://localhost:8443/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
@@ -79,7 +76,7 @@ boton.addEventListener('click', function () {
         enable: true
     }
     console.log(attentionPoint);
-    axios.post('https://digital-queue-404.herokuapp.com/attentionPoints', attentionPoint)
+    axios.post('https://localhost:8443/attentionPoints', attentionPoint)
         .then(res => {
             if (res.status == 201) {
                 mensaje.innerHTML = 'El nuevo Post ha sido almacenado con id: ' + res.data.id;
@@ -88,11 +85,12 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
+    setTimeout(() => {window.location.reload();}, 1000);
 });
 
 
 function deleteAttentionPoint(id) {
-    axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id)
+    axios.delete("https://localhost:8443/attentionPoints/" + id)
         .then(function (response) {
             window.location.reload
         })
