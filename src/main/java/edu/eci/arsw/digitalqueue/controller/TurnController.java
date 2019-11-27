@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,7 +71,9 @@ public class TurnController {
         ).orElseThrow(() -> new NoTurnsInQueueException(queue));
         System.out.println(turn.getCode() + " " + turn.getAttended());
         turn.setAttended(true);
+        turn.setAttendedDateTime(new Timestamp(System.currentTimeMillis()));
         turnRepository.save(turn);
+        
         return turnRepresentationModelAssembler.toModel(turn);
     }
 
@@ -97,24 +100,24 @@ public class TurnController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
-    @PutMapping("/complete/{code}")
+    @DeleteMapping("/complete/{code}")
     private ResponseEntity<EntityModel<Turn>> complete(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
-
         EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
-
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
 
     }
 
 
-    @PutMapping("/cancel/{code}")
+    @DeleteMapping("/cancel/{code}")
     private ResponseEntity<EntityModel<Turn>> cancel(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
+        System.out.println(code);
         if (updatedTurn.getCancelled()) {
             throw new TurnAlreadyCancelledException(code);
         }
         updatedTurn.setCancelled(true);
+        turnRepository.save(updatedTurn);
 
         EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
 

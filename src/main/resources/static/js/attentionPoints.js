@@ -40,6 +40,7 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
     .then(response => {
         mydata = response.data;
         mydata = mydata._embedded.attentionPointList;
+        console.log(mydata)
         mydata.forEach(attentionPoint => {
             $('#attentionPointsTable').append(`
                 <tr>
