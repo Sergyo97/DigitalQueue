@@ -59,7 +59,7 @@ public class TurnController {
 
     @GetMapping("/count")
     public int inQueue(@RequestParam String service) {
-        return turnRepository.findByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
+        return turnRepository.findByService(
                 serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
         ).size();
     }
@@ -109,7 +109,7 @@ public class TurnController {
     }
 
 
-    @DeleteMapping("/cancel/{code}")
+    @PutMapping("/cancel/{code}")
     private ResponseEntity<EntityModel<Turn>> cancel(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
         System.out.println(code);

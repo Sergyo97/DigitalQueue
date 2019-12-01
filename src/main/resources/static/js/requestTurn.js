@@ -1,4 +1,4 @@
-axios.get('https://digital-queue-404.herokuapp.com/services/')
+axios.get('https://localhost:8443/services/')
     .then(response => {
         var services = response.data._embedded.serviceList;
         services.forEach(service => {
@@ -8,9 +8,18 @@ axios.get('https://digital-queue-404.herokuapp.com/services/')
     })
 
 function saveTurn(turn) {
-    axios.post("https://digital-queue-404.herokuapp.com/turns", turn)
+    axios.post("https://localhost:8443/turns", turn)
         .then(response => {
-            alert('Turn successfully created.')
+            alert('Your turn code is ' + turn.code)
+            localStorage.setItem('currentTurn', turn.code);
+            window.addEventListener('beforeunload', event => {
+                event.preventDefault();
+                event.returnValue = '';
+            })
+            window.addEventListener("unload", event => {
+                cancelCurrentTurn();
+                event.returnValue = '';
+            })
         });
 }
 
@@ -18,10 +27,9 @@ function request() {
     var service = JSON.parse(localStorage.getItem('services')).find(service => {
         return service.name == $('#services').val();
     })
-    axios.get('https://digital-queue-404.herokuapp.com/turns/count?service=' + service.name)
+    axios.get('https://localhost:8443/turns/count?service=' + service.name)
         .then(response => {
             var code = service.identifier + (response.data + 1);
-            console.log('Code: ' + code);
             var turn = {
                 code: code,
                 clientName: $('#name').val(),
@@ -34,4 +42,8 @@ function request() {
             }
             saveTurn(turn);
         });
+}
+
+function cancelCurrentTurn() {
+    axios.put("https://localhost:8443/turns/cancel/" + localStorage.getItem('currentTurn'));
 }
