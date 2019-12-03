@@ -44,12 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index.html").permitAll()
+                .antMatchers("/", "/index.html", "/turns").permitAll()
                 .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/users**").hasAuthority("ADMIN")
                 .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/attentionPoints**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/manageTurns.html", "/attentionPoints", "/turns").hasAuthority("AGENT");
+                .antMatchers("/manageTurns.html", "/attentionPoints").hasAuthority("AGENT");
     }
 
     @Bean
