@@ -13,7 +13,16 @@ axios.get('https://digital-queue-404.herokuapp.com/services/')
 function saveTurn(turn) {
     axios.post("https://digital-queue-404.herokuapp.com/turns", turn)
         .then(response => {
-            alert('Turn successfully created.')
+            alert('Your turn code is ' + turn.code)
+            localStorage.setItem('currentTurn', turn.code);
+            window.addEventListener('beforeunload', event => {
+                event.preventDefault();
+                event.returnValue = '';
+            })
+            window.addEventListener("unload", event => {
+                cancelCurrentTurn();
+                event.returnValue = '';
+            })
         });
 }
 
@@ -24,7 +33,6 @@ function request() {
     axios.get('https://digital-queue-404.herokuapp.com/turns/countTurns?service=' + service.name)
         .then(response => {
             var code = service.identifier + (response.data + 1);
-            console.log('Code: ' + code);
             var turn = {
                 code: code,
                 clientName: $('#name').val(),
@@ -37,4 +45,8 @@ function request() {
             }
             saveTurn(turn);
         });
+}
+
+function cancelCurrentTurn() {
+    axios.put("https://digital-queue-404.herokuapp.com/turns/cancel/" + localStorage.getItem('currentTurn'));
 }

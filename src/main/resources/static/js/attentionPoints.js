@@ -44,7 +44,6 @@ axios.get('https://digital-queue-404.herokuapp.com/attentionPoints')
                     <td>` + (attentionPoint.enable ? 'True' : 'False') + `</td>
                     <td>` + attentionPoint.service.name + `</td>
                     <td>` + attentionPoint.user.name + `</td>
-                    <td>` + "1" + `</td>
                     <td>
                         <button type="button" onclick="deleteAttentionPoint(`+ attentionPoint.id + `)" class="btn btn-danger">
                             <i class="far fa-trash-alt"></i>
@@ -86,14 +85,14 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
-    setTimeout(() => {window.location.reload();}, 1000);
+    setTimeout(() => { window.location.reload(); }, 1000);
 });
 
 
 function deleteAttentionPoint(id) {
     axios.delete("https://digital-queue-404.herokuapp.com/attentionPoints/" + id)
         .then(function (response) {
-            window.location.reload
+            setTimeout(() => { window.location.reload(); }, 500);
         })
 
 }

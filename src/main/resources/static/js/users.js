@@ -53,7 +53,7 @@ axios.get('https://digital-queue-404.herokuapp.com/users')
 function deleteUsers(id) {
     axios.delete("https://digital-queue-404.herokuapp.com/users/" + id)
         .then(function (response) {
-            window.location.reload
+            setTimeout(() => { window.location.reload(); }, 500);
         })
 
 }
