@@ -60,8 +60,8 @@ public class TurnController {
         return turnRepresentationModelAssembler.toModel(turn);
     }
 
-    @GetMapping("/count")
-    public int inQueue(@RequestParam String service) {
+    @GetMapping("/totalWaitingByQueue")
+    public int totalWaitingByQueue(@RequestParam String service) {
         return turnRepository.findByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
                 serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
         ).size();
@@ -83,7 +83,7 @@ public class TurnController {
         for(int i = 0; i < services.size(); i++){
             Service service = services.get(i);
             System.out.println(service.getName());
-            totalTurns += inQueue(service.getName());
+            totalTurns += totalWaitingByQueue(service.getName());
         }
         System.out.println(totalTurns);
         return totalTurns;
