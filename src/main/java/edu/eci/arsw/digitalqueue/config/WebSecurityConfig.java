@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users**").hasAuthority("ADMIN")
                 .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/attentionPoints**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/manageTurns.html").hasAuthority("AGENT");
+                .antMatchers("/manageTurns.html", "/attentionPoints", "/turns").hasAuthority("AGENT");
     }
 
     @Bean
