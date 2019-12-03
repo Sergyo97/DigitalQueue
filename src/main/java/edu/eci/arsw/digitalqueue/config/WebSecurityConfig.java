@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users**").hasAuthority("ADMIN")
                 .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/attentionPoints.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers(HttpMethod.GET,"/attentionPoints").hasAnyAuthority("AGENT")
+                .antMatchers(HttpMethod.GET,"/attentionPoints").hasAnyAuthority("AGENT", "ADMIN", "SERVICE_MANAGER")
                 .antMatchers(HttpMethod.POST,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers(HttpMethod.PUT,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers(HttpMethod.DELETE,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
