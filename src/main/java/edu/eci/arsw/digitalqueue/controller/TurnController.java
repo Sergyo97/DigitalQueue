@@ -59,7 +59,7 @@ public class TurnController {
 
     @GetMapping("/count")
     public int inQueue(@RequestParam String service) {
-        return turnRepository.findByService(
+        return turnRepository.findByServiceAndAttendedFalseOrderByRequestedDateTimeDesc(
                 serviceRepository.findByName(service).orElseThrow(() -> new ServiceNotFoundException(service))
         ).size();
     }

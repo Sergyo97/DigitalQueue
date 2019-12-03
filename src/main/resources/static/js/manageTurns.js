@@ -11,7 +11,7 @@ localStorage.setItem('turn',"")
 var attentionPointId = getParameterByName('id');
 console.log(attentionPointId)
 
-axios.get('https://localhost:8443/attentionPoints/' + attentionPointId)
+axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
     .then(response => {
         attp = response.data;
         //console.log(attp)
@@ -57,7 +57,7 @@ botonCancelTurn.addEventListener('click', function(){
     if(localStorage.getItem('turn') != ""){
         var turnToCancel = JSON.parse( localStorage.getItem("turn"));
         console.log(turnToCancel.code);
-        axios.delete("https://localhost:8443/turns/cancel/"+ turnToCancel.code ).then(function (response) {
+        axios.delete("https://digital-queue-404.herokuapp.com/turns/cancel/"+ turnToCancel.code ).then(function (response) {
             localStorage.setItem('turn',"")
             confirm("El turno "+ turnToCancel.code + " a sido cancelado")
         });
@@ -82,7 +82,7 @@ function getParameterByName(name, url) {
 
 async function getTurn(){
     console.log(service.name);
-    let json = await axios.get('https://localhost:8443/turns/next?service=' + service.name);
+    let json = await axios.get('https://digital-queue-404.herokuapp.com/turns/next?service=' + service.name);
     return json;
 
 }
