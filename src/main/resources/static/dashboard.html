@@ -68,7 +68,7 @@
                                 <div class="card mt-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Total Tickets</h5>
-                                        <p class="card-text text-center">0</p>
+                                        <p id="totalTickets" class="card-text text-center">0</p>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 <div class="card mt-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Total Waiting</h5>
-                                        <p class="card-text text-center">0</p>
+                                        <p id="totalWaiting" class="card-text text-center">0</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                 <div class="card mt-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Total Being Served</h5>
-                                        <p class="card-text text-center">0</p>
+                                        <p id="totalBeingServed" class="card-text text-center">0</p>
                                     </div>
                                 </div>
                             </div>
@@ -94,16 +94,16 @@
                                 <div class="card mt-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Total Done</h5>
-                                        <p class="card-text text-center">0</p>
+                                        <p id="totalDone" class="card-text text-center">0</p>
                                     </div>
                                 </div>
 
                             </div>
                             <div class=" col-sm-3">
-                                <div class="card mt-3" >
+                                <div class="card mt-3">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Total Cancelled</h5>
-                                        <p class="card-text text-center">0</p>
+                                        <p id="totalcancelled" class="card-text text-center">0</p>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script>
         feather.replace()
-      </script>
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 
 
