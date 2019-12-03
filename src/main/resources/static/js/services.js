@@ -60,7 +60,7 @@ axios.get('https://digital-queue-404.herokuapp.com/services')
 
 function deleteService(id) {
     axios.delete("https://digital-queue-404.herokuapp.com/services/" + id).then(function (response) {
-        window.location.reload
+        setTimeout(() => { window.location.reload(); }, 500);
     })
 
 }
