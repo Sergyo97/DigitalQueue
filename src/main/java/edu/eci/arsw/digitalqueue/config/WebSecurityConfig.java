@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/index.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/turns").permitAll()
-                .antMatchers(HttpMethod.POST, "/turns").hasAuthority("AGENT")
+                .antMatchers(HttpMethod.POST, "/turns").permitAll()
                 .antMatchers(HttpMethod.PUT, "/turns").hasAuthority("AGENT")
                 .antMatchers(HttpMethod.DELETE, "/turns").hasAuthority("AGENT")
                 .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
