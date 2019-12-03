@@ -60,7 +60,7 @@ axios.get('https://localhost:8443/services')
 
 function deleteService(id) {
     axios.delete("https://localhost:8443/services/" + id).then(function (response) {
-        window.location.reload
+        setTimeout(() => { window.location.reload(); }, 500);
     })
 
 }

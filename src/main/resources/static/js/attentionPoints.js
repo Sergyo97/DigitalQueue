@@ -85,14 +85,14 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
-    setTimeout(() => {window.location.reload();}, 1000);
+    setTimeout(() => { window.location.reload(); }, 1000);
 });
 
 
 function deleteAttentionPoint(id) {
     axios.delete("https://localhost:8443/attentionPoints/" + id)
         .then(function (response) {
-            window.location.reload
+            setTimeout(() => { window.location.reload(); }, 500);
         })
 
 }

@@ -53,7 +53,7 @@ axios.get('https://localhost:8443/users')
 function deleteUsers(id) {
     axios.delete("https://localhost:8443/users/" + id)
         .then(function (response) {
-            window.location.reload
+            setTimeout(() => { window.location.reload(); }, 500);
         })
 
 }
