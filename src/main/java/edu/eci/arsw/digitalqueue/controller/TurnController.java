@@ -134,7 +134,7 @@ public class TurnController {
         return ResponseEntity.created(new URI(entityModel.getRequiredLink("self").expand().getHref())).body(entityModel);
     }
 
-    @DeleteMapping("/complete/{code}")
+    @PutMapping("/complete/{code}")
     private ResponseEntity<EntityModel<Turn>> complete(@PathVariable String code) throws URISyntaxException {
         Turn updatedTurn = turnRepository.findById(code).orElseThrow(() -> new TurnNotFoundException(code));
         EntityModel<Turn> entityModel = turnRepresentationModelAssembler.toModel(updatedTurn);
