@@ -2,6 +2,7 @@ package edu.eci.arsw.digitalqueue.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -45,10 +46,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index.html").permitAll()
+                .antMatchers(HttpMethod.GET, "/turns").permitAll()
+                .antMatchers(HttpMethod.POST, "/turns").permitAll()
+                .antMatchers(HttpMethod.PUT, "/turns").hasAuthority("AGENT")
+                .antMatchers(HttpMethod.DELETE, "/turns").hasAuthority("AGENT")
                 .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/users**").hasAuthority("ADMIN")
                 .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/attentionPoints**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers("/attentionPoints.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers(HttpMethod.GET,"/attentionPoints").hasAnyAuthority("AGENT", "ADMIN", "SERVICE_MANAGER")
+                .antMatchers(HttpMethod.POST,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers(HttpMethod.PUT,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
+                .antMatchers(HttpMethod.DELETE,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
                 .antMatchers("/manageTurns.html").hasAuthority("AGENT");
     }
 

@@ -29,8 +29,8 @@ function getTotalCancelled() {
     axios.get('https://digital-queue-404.herokuapp.com/turns/totalWaiting').then(function (result) {
         var res = result.data
         //console.log(res)
-        var totalWaiting = document.getElementById("totalWaiting")        
-        totalWaiting.innerHTML = res        
+        var totalWaiting = document.getElementById("totalWaiting")
+        totalWaiting.innerHTML = res
     });
     */
 }
