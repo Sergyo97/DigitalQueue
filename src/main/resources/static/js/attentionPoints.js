@@ -2,14 +2,14 @@ var loading = document.getElementById('loading');
 var mensaje = document.getElementById('mensaje');
 var boton = document.getElementById('json_post');
 
-var queueName = getParameterByName('queueName');
-console.log(queueName)
-if (!queueName) {
-    queueName = "";
+var serviceName = getParameterByName('serviceName');
+console.log(serviceName)
+if (!serviceName) {
+    serviceName = "";
 } else {
-    queueName = "?queueName=" + queueName;
+    serviceName = "?serviceName=" + serviceName;
 }
-console.log(queueName)
+console.log(serviceName)
 
 axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
