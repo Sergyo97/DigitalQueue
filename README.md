@@ -124,12 +124,12 @@ The system should be designed in such a way that even if the number of users is 
     5. Answer: There is no excessive delay in responding to requests.
     6. Response Measurement: low response time to requests for resources (less than 3000 ms), number of requests denied below 2.5%.
     
-    7. Stimulus Source: System user, either registered or anonymous
-    8. Stimulus: Navigate in the application
-    9. Environment: Application with a normal traffic of maximum 100 users has a peak demand of 150 users surfing at a time.
-    10. Device: Backend Server (API Rest), database
-    11. Answer: There is no excessive delay in responding to requests.
-    12. Response Measurement: low response time to requests for resources (less than 4000 ms), number of requests denied below 5%.
+    1. Stimulus Source: System user, either registered or anonymous
+    2. Stimulus: Navigate in the application
+    3. Environment: Application with a normal traffic of maximum 100 users has a peak demand of 150 users surfing at a time.
+    4 Device: Backend Server (API Rest), database
+    5. Answer: There is no excessive delay in responding to requests.
+    6. Response Measurement: low response time to requests for resources (less than 4000 ms), number of requests denied below 5%.
 
 The system must provide real time services in an optimal way, responding fluently to the use by the public.
 
@@ -141,22 +141,52 @@ The system must provide real time services in an optimal way, responding fluentl
     6. Response Measurement: Information transmitted in real time must be consistent. The actions of the other participants in the session are displayed in less than 5000 ms.
 
 ### Authentication Scenario
+The system must allow interaction only to the pertinent users.
 
-    1. Stimulus source: who or what generates the stimulus. 
-    2. Stimulus: what you want to achieve.
-    3. Environment: conditions within which the stimulus is presented.
-    4. Artifact: part of the system that receives the stimulus.
-    5. Answer: activity that occurs after the arrival of the stimulus.
-    6. Response Measurement: criterion for testing the requirement.
+    1. Stimulus source: Malicious user
+    2. Stimulus: Attempting to access to information or functions without authentication.
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Backend Server (API Rest), frontend application.
+    5. Answer: The system rejects the interactions from the malicious user.
+    6. Response Measurement: The confidentiality and intergrity of the information remains unharmed.
+
+    1. Stimulus source: Malicious user
+    2. Stimulus: Attempting to obtain credentials from the database.
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Database
+    5. Answer: The credentials are properly encrypted and unreadable.
+    6. Response Measurement: The confidentiality of the user credentials remains unharmed.
+    
+    1. Stimulus source: Registered user
+    2. Stimulus: Attempting to access any page that requires authentication after logging out
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Database
+    5. Answer: The website requires the user to authenticate again in order to get in.
+    6. Response Measurement: The user gets no access to the website in any attempt.
+    
+    1. Stimulus source: Non-registered user
+    2. Stimulus: Requesting a turn
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Frontend website
+    5. Answer: The turn is correctly given to the user.
+    6. Response Measurement: The user gets a new turn to be attended.
 
 ### Authorization Scenario
+The services must require specific roles permissions to be used by the employees.
 
-    1. Stimulus source: who or what generates the stimulus. 
-    2. Stimulus: what you want to achieve.
-    3. Environment: conditions within which the stimulus is presented.
-    4. Artifact: part of the system that receives the stimulus.
-    5. Answer: activity that occurs after the arrival of the stimulus.
-    6. Response Measurement: criterion for testing the requirement.
+    1. Stimulus source: Registered administrator user.
+    2. Stimulus: Accessing the attention point management site.
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Frontend.
+    5. Answer: The site responds with 403 Unauthorized error.
+    6. Response Measurement: The administrator has no access to the attention point management site.
+    
+    1. Stimulus source: Registered agent user.
+    2. Stimulus: Accessing the dashboard or making requests to the API that he's not authorized to.
+    3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
+    4. Artifact: Frontend, Backend (API Rest).
+    5. Answer: The server responds with 403 Unauthorized to all the pertinent requests to the API or the web pages .
+    6. Response Measurement: The agent has no access to the dashboard or the API.
 
 ### Adaptability Scenario
 The website must be visible from any type of Internet browser covered by the **Bootstrap** framework that supports any device on the market.
