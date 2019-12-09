@@ -8,4 +8,8 @@ public class UserNotFoundException extends RuntimeException {
         super("Could not find employee " + id);
     }
 
+    public UserNotFoundException(String name) {
+        super("Could not find employee " + name);
+    }
+
 }

@@ -85,7 +85,7 @@ boton.addEventListener('click', function () {
         .catch(function (err) {
             console.log(err);
         })
-    setTimeout(() => { window.location.reload(); }, 1000);
+    setTimeout(() => { window.location.reload(); }, 500);
 });
 
 

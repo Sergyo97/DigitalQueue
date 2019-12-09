@@ -31,13 +31,11 @@ axios.get('https://digital-queue-404.herokuapp.com/services')
     .then(response => {
         mydata = response.data._embedded.serviceList;
         mydata.forEach(service => {
+
             $('#servicesTable').append(`
                 <tr>
                     <td>` + service.name + `</td>
-                    <td>` + service.name[0] + `</td>
-                    <td>
-                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
-                    </td>
+                    <td>` + service.identifier + `</td>                   
                     <td>
                         <button type="button" onclick="window.location.href='/attentionPoints.html?serviceName=` + service.name + ` '" class="btn btn-info">
                             <i class="far fa-edit"></i>
