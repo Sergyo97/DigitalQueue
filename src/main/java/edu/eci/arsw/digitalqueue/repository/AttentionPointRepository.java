@@ -2,6 +2,8 @@ package edu.eci.arsw.digitalqueue.repository;
 
 import edu.eci.arsw.digitalqueue.model.AttentionPoint;
 import edu.eci.arsw.digitalqueue.model.Service;
+import edu.eci.arsw.digitalqueue.model.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,7 @@ public interface AttentionPointRepository extends JpaRepository<AttentionPoint, 
     List<AttentionPoint> findByEnable(Boolean enable);
 
     List<AttentionPoint> findByService(Service service);
+
+    AttentionPoint findByUser(User user);
 
 }

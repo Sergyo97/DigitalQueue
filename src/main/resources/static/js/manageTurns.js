@@ -1,4 +1,3 @@
-
 var botonNextTurn = document.getElementById('nextTurn');
 var botonTurnCompleted = document.getElementById('turnCompleted');
 var botonCancelTurn = document.getElementById('cancelTurn');
@@ -10,59 +9,61 @@ var turn;
 localStorage.setItem('turn', "")
 var attentionPointId = getParameterByName('id');
 
-axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
-    .then(response => {
-        attp = response.data;
-        localStorage.setItem('attentionPoint', JSON.stringify(attp))
-    })
-    .catch(e => {
-        console.log('Error en el Axios gonorrea');
-        console.log(e);
-    })
+setTimeout(axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
+.then(response => {
+    attp = response.data;
+    localStorage.setItem('attentionPoint', JSON.stringify(attp))
+})
+.catch(e => {
+    //+console.log('Error en el Axios gonorrea');
+    console.log(e);
+}), 1000);
 
 attentionPoint = JSON.parse(localStorage.getItem('attentionPoint'));
-console.log(attentionPoint);
 service = attentionPoint.service;
-console.log(service);
 
 getNumTurns();
 
 botonNextTurn.addEventListener('click', function () {
-    console.log("next turn")
     if (!localStorage.getItem("turn")) {
         axios.get('https://digital-queue-404.herokuapp.com/turns/next?service=' + service.name).then(function (result) {
             var res = result.data
             if (res) {
                 localStorage.setItem('turn', JSON.stringify(res));
-                confirm("Siguiente turno " + res.code)
+                alert("Next turn " + res.code + " customer's name " + res.clientName) 
             } else {
-                confirm("No hay más turnos")
+                alert("There are no more turns.")
             }
             getNumTurns();
         })
     } else {
-        confirm("primero cancela o completa tu turno actual");
+        alert("first cancel or complete your current turn");
     }
 });
 
 botonTurnCompleted.addEventListener('click', function () {
-    console.log("turn completed");
-    localStorage.setItem('turn', "")
+    if (localStorage.getItem("turn")) {
+        localStorage.setItem('turn', "")    
+        alert("Completed turn");
+    } else {
+        alert("you don't have a turn to complete");
+    }
+    
     getNumTurns();
+    
+
 });
 
 botonCancelTurn.addEventListener('click', function () {
-    console.log("cancel turn");
     if (localStorage.getItem('turn') != "") {
         var turnToCancel = JSON.parse(localStorage.getItem("turn"));
-        console.log(turnToCancel.code);
-        axios.delete("https://digital-queue-404.herokuapp.com/turns/cancel/" + turnToCancel.code).then(function (response) {
+        axios.put("https://digital-queue-404.herokuapp.com/turns/cancel/" + turnToCancel.code).then(function (response) {
             localStorage.setItem('turn', "")
-            confirm("El turno " + turnToCancel.code + " a sido cancelado")
+            alert("The turn " + turnToCancel.code + " has been cancelled")
 
         });
     } else {
-        confirm("No hay un turno para cancelar")
+        alert("There's no turn to cancel.")
     }
     getNumTurns();
 
@@ -81,12 +82,10 @@ function getParameterByName(name, url) {
 
 
 function getNumTurns() {
-    console.log(service.name);
     axios.get('https://digital-queue-404.herokuapp.com/turns/totalWaitingByQueue?service=' + service.name).then(function (result) {
-        var res = result.data
-        //console.log(res)
-        var totalWaiting = document.getElementById("totalWaiting")
-        totalWaiting.innerHTML = res
+        var res = result.data;
+        var totalWaiting = document.getElementById("totalWaiting");
+        totalWaiting.innerHTML = res;
     });
 }
 
