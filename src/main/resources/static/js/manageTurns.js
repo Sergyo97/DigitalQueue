@@ -9,7 +9,7 @@ var turn;
 localStorage.setItem('turn', "")
 var attentionPointId = getParameterByName('id');
 
-setTimeout(axios.get('https://digital-queue-404.herokuapp.com/attentionPoints/' + attentionPointId)
+setTimeout(axios.get('https://digital-queue-4040.herokuapp.com/attentionPoints/' + attentionPointId)
 .then(response => {
     attp = response.data;
     localStorage.setItem('attentionPoint', JSON.stringify(attp))
@@ -26,7 +26,7 @@ getNumTurns();
 
 botonNextTurn.addEventListener('click', function () {
     if (!localStorage.getItem("turn")) {
-        axios.get('https://digital-queue-404.herokuapp.com/turns/next?service=' + service.name).then(function (result) {
+        axios.get('https://digital-queue-4040.herokuapp.com/turns/next?service=' + service.name).then(function (result) {
             var res = result.data
             if (res) {
                 localStorage.setItem('turn', JSON.stringify(res));
@@ -57,7 +57,7 @@ botonTurnCompleted.addEventListener('click', function () {
 botonCancelTurn.addEventListener('click', function () {
     if (localStorage.getItem('turn') != "") {
         var turnToCancel = JSON.parse(localStorage.getItem("turn"));
-        axios.put("https://digital-queue-404.herokuapp.com/turns/cancel/" + turnToCancel.code).then(function (response) {
+        axios.put("https://digital-queue-4040.herokuapp.com/turns/cancel/" + turnToCancel.code).then(function (response) {
             localStorage.setItem('turn', "")
             alert("The turn " + turnToCancel.code + " has been cancelled")
 
@@ -82,7 +82,7 @@ function getParameterByName(name, url) {
 
 
 function getNumTurns() {
-    axios.get('https://digital-queue-404.herokuapp.com/turns/totalWaitingByQueue?service=' + service.name).then(function (result) {
+    axios.get('https://digital-queue-4040.herokuapp.com/turns/totalWaitingByQueue?service=' + service.name).then(function (result) {
         var res = result.data;
         var totalWaiting = document.getElementById("totalWaiting");
         totalWaiting.innerHTML = res;

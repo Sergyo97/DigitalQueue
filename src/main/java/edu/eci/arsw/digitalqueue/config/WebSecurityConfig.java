@@ -7,64 +7,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .logout()
-                .and()
                 .requiresChannel()
                 .anyRequest()
                 .requiresSecure()
                 .and()
                 .csrf().disable()
-                .cors().disable()
-                .formLogin()
-                .permitAll()
-                .successHandler(authenticationSuccessHandler);
-
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index.html").permitAll()
-                .antMatchers(HttpMethod.GET, "/turns").permitAll()
-                .antMatchers(HttpMethod.POST, "/turns").permitAll()
-                .antMatchers(HttpMethod.PUT, "/turns").hasAuthority("AGENT")
-                .antMatchers(HttpMethod.DELETE, "/turns").hasAuthority("AGENT")
-                .antMatchers("/dashboard.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/users**").hasAuthority("ADMIN")
-                .antMatchers("/services**").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/attentionPoints.html").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers(HttpMethod.GET,"/attentionPoints").hasAnyAuthority("AGENT", "ADMIN", "SERVICE_MANAGER")
-                .antMatchers(HttpMethod.POST,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers(HttpMethod.PUT,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers(HttpMethod.DELETE,"/attentionPoints").hasAnyAuthority("ADMIN", "SERVICE_MANAGER")
-                .antMatchers("/manageTurns.html").hasAuthority("AGENT");
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(11);
+                .cors().disable();
     }
 
 }

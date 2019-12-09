@@ -211,7 +211,7 @@ The system must provide high availability, the portal will be accessible **90%**
 ## Badges
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/43a88f6d3f414708922717ca1d2b6ea8)](https://www.codacy.com/manual/develalopez/DigitalQueue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=404NotFoundECI/DigitalQueue&amp;utm_campaign=Badge_Grade) 
 
-[![Digital Queue](https://www.herokucdn.com/deploy/button.png)](https://digital-queue-404.herokuapp.com/)
+[![Digital Queue](https://www.herokucdn.com/deploy/button.png)](https://digital-queue-4040.herokuapp.com/)
 
 ## License
 This project is under GNU General Public License - see  [LICENSE](https://github.com/404NotFoundECI/DigitalQueue/blob/master/LICENSE) to more info.
