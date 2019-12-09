@@ -117,14 +117,14 @@ The following structure will be used to identify quality scenarios:
 ### Latency Scenario
 The system should be designed in such a way that even if the number of users is low at first, if in a short period of time they increase, its availability and performance will not be affected.
 
-    1. Source: System user, either registered or anonymous
+    1. Stimulus Source: System user, either registered or anonymous
     2. Stimulus: Navigate in the application
     3. Environment: Application with a normal traffic of maximum 100 users.
     4. Device: Backend Server (API Rest), database and FrontEnd
     5. Answer: There is no excessive delay in responding to requests.
     6. Response Measurement: low response time to requests for resources (less than 3000 ms), number of requests denied below 2.5%.
     
-    7. Source: System user, either registered or anonymous
+    7. Stimulus Source: System user, either registered or anonymous
     8. Stimulus: Navigate in the application
     9. Environment: Application with a normal traffic of maximum 100 users has a peak demand of 150 users surfing at a time.
     10. Device: Backend Server (API Rest), database
@@ -133,7 +133,7 @@ The system should be designed in such a way that even if the number of users is 
 
 The system must provide real time services in an optimal way, responding fluently to the use by the public.
 
-    1. Source: Registered system users
+    1. Stimulus Source: Registered system users
     2. Stimulus: Use of functionalities in real time
     3. Environment: Normal traffic of maximum 5 users in a monitoring session, normal traffic in the application of maximum 100 users.
     4. Device: Frontend Server (Free Dyno in Heroku)
@@ -180,6 +180,7 @@ The system must provide high availability, the portal will be accessible **90%**
 
 ## Badges
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/43a88f6d3f414708922717ca1d2b6ea8)](https://www.codacy.com/manual/develalopez/DigitalQueue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=404NotFoundECI/DigitalQueue&amp;utm_campaign=Badge_Grade) 
+
 [![Digital Queue](https://www.herokucdn.com/deploy/button.png)](https://digital-queue-404.herokuapp.com/)
 
 ## License
