@@ -1,5 +1,8 @@
 package edu.eci.arsw.digitalqueue.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +20,7 @@ public class AttentionPoint {
     @OneToOne
     private User user;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Service service;
 
     public Long getId() {

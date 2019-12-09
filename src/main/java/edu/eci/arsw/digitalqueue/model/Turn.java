@@ -1,9 +1,9 @@
 package edu.eci.arsw.digitalqueue.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,10 +15,12 @@ public class Turn {
     private Timestamp requestedDateTime;
     private Timestamp attendedDateTime;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Service service;
     private Boolean attended;
     private Boolean cancelled;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AttentionPoint attentionPoint;
 
     public String getCode() {
